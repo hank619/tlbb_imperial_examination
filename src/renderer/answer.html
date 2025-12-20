@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>答案</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background: transparent;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", "SimHei", sans-serif;
+      -webkit-app-region: drag;
+    }
+
+    .answer-container {
+      background: linear-gradient(145deg, #2d1810 0%, #1a0f0a 100%);
+      border: 2px solid #8B4513;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(255, 215, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 装饰性背景 */
+    .answer-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 10% 10%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    /* 关闭按钮 */
+    .close-btn {
+      -webkit-app-region: no-drag;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      background: rgba(139, 69, 19, 0.6);
+      border: 1px solid #8B4513;
+      border-radius: 50%;
+      color: #DEB887;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .close-btn:hover {
+      background: #8B4513;
+      color: #FFD700;
+    }
+
+    /* 头部 */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(139, 69, 19, 0.5);
+    }
+
+    .header-icon {
+      font-size: 20px;
+    }
+
+    .header-title {
+      font-size: 14px;
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    /* 题目显示 */
+    .question-section {
+      margin-bottom: 12px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      color: #A0826D;
+      margin-bottom: 4px;
+    }
+
+    .question-text {
+      font-size: 13px;
+      color: #DEB887;
+      line-height: 1.5;
+      max-height: 40px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    /* 答案显示 */
+    .answer-section {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .answer-text {
+      font-size: 18px;
+      color: #FFD700;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+      50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    }
+
+    /* 未找到答案状态 */
+    .not-found .header-icon::before {
+      content: '⚠️';
+    }
+
+    .not-found .answer-text {
+      color: #CD853F;
+      font-size: 14px;
+      animation: none;
+    }
+
+    /* 倒计时条 */
+    .countdown-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FFD700, #FFA500);
+      animation: countdown 8s linear forwards;
+      border-radius: 0 0 10px 10px;
+    }
+
+    @keyframes countdown {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="answer-container" id="container">
+    <button class="close-btn" id="closeBtn">×</button>
+    
+    <div class="header">
+      <span class="header-icon" id="headerIcon">✅</span>
+      <span class="header-title" id="headerTitle">找到答案</span>
+    </div>
+
+    <div class="question-section">
+      <div class="section-label">识别的题目：</div>
+      <div class="question-text" id="questionText">-</div>
+    </div>
+
+    <div class="answer-section">
+      <div class="answer-text" id="answerText">-</div>
+    </div>
+
+    <div class="countdown-bar"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const headerIcon = document.getElementById('headerIcon');
+    const headerTitle = document.getElementById('headerTitle');
+    const questionText = document.getElementById('questionText');
+    const answerText = document.getElementById('answerText');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // 关闭按钮
+    closeBtn.addEventListener('click', () => {
+      window.electronAPI.closeAnswer();
+    });
+
+    // 监听答案数据
+    window.electronAPI.onShowAnswer((data) => {
+      if (data.notFound) {
+        container.classList.add('not-found');
+        headerIcon.textContent = '⚠️';
+        headerTitle.textContent = '未找到匹配';
+        questionText.textContent = data.question || '-';
+        answerText.textContent = '未在题库中找到匹配的答案';
+      } else {
+        container.classList.remove('not-found');
+        headerIcon.textContent = '✅';
+        headerTitle.textContent = '找到答案';
+        questionText.textContent = data.question || '-';
+        answerText.textContent = data.answer || '-';
+      }
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.electronAPI.closeAnswer();
+      }
+    });
+  </script>
+</body>
+</html>
+

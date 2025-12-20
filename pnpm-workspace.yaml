@@ -1,0 +1,4 @@
+onlyBuiltDependencies:
+  - electron
+  - sharp
+  - tesseract.js

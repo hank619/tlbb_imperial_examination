@@ -1,0 +1,36 @@
+# 依赖目录
+node_modules/
+.pnpm-store/
+
+# 打包输出
+dist/
+out/
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 配置
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# Tesseract 缓存
+.cache/
+
+# 临时文件
+*.tmp
+*.temp
+

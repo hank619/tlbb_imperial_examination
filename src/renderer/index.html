@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;">
+  <title>天龙八部科举助手</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🎓 科举答题助手</h1>
+      <p class="subtitle">天龙八部科举考试辅助工具</p>
+    </header>
+
+    <main class="main-content">
+      <div class="status-area" id="statusArea">
+        <div class="status-icon">📷</div>
+        <p class="status-text" id="statusText">准备就绪</p>
+      </div>
+
+      <button class="capture-btn" id="captureBtn">
+        <span class="btn-icon">🎯</span>
+        <span class="btn-text">框选题目区域</span>
+      </button>
+
+      <div class="shortcut-hint">
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> 快速开始
+      </div>
+      
+      <div class="shortcut-hint">
+        <kbd>ESC</kbd> 取消选择
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-text">识别完成后答案将自动显示</p>
+    </footer>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
+

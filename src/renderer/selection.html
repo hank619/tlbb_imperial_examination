@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择区域</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    body {
+      background: rgba(0, 0, 0, 0.3);
+      user-select: none;
+    }
+
+    /* 选择框 */
+    #selectionBox {
+      position: fixed;
+      border: 2px dashed #FFD700;
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 1000;
+    }
+
+    /* 选择框四角装饰 */
+    #selectionBox::before,
+    #selectionBox::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #FFD700;
+    }
+
+    #selectionBox::before {
+      top: -3px;
+      left: -3px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    #selectionBox::after {
+      bottom: -3px;
+      right: -3px;
+      border-left: none;
+      border-top: none;
+    }
+
+    /* 尺寸提示 */
+    #sizeHint {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFD700;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-family: "Microsoft YaHei", sans-serif;
+      font-size: 12px;
+      display: none;
+      z-index: 1001;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* 操作提示 */
+    #instructions {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: #F5DEB3;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      border: 1px solid #8B4513;
+      z-index: 1001;
+      text-align: center;
+    }
+
+    #instructions span {
+      color: #FFD700;
+      font-weight: bold;
+    }
+
+    /* 十字准星 */
+    #crosshair-h, #crosshair-v {
+      position: fixed;
+      background: rgba(255, 215, 0, 0.5);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    #crosshair-h {
+      width: 100%;
+      height: 1px;
+      left: 0;
+    }
+
+    #crosshair-v {
+      width: 1px;
+      height: 100%;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="instructions">
+    拖动鼠标 <span>框选题目区域</span>，松开完成选择。按 <span>ESC</span> 取消
+  </div>
+  
+  <div id="crosshair-h"></div>
+  <div id="crosshair-v"></div>
+  <div id="selectionBox"></div>
+  <div id="sizeHint"></div>
+
+  <script>
+    const selectionBox = document.getElementById('selectionBox');
+    const sizeHint = document.getElementById('sizeHint');
+    const instructions = document.getElementById('instructions');
+    const crosshairH = document.getElementById('crosshair-h');
+    const crosshairV = document.getElementById('crosshair-v');
+
+    let isSelecting = false;
+    let startX = 0;
+    let startY = 0;
+
+    // 更新十字准星位置
+    function updateCrosshair(x, y) {
+      crosshairH.style.top = y + 'px';
+      crosshairV.style.left = x + 'px';
+    }
+
+    // 鼠标移动时更新十字准星
+    document.addEventListener('mousemove', (e) => {
+      updateCrosshair(e.clientX, e.clientY);
+      
+      if (!isSelecting) return;
+
+      const currentX = e.clientX;
+      const currentY = e.clientY;
+
+      // 计算选择框位置和大小
+      const left = Math.min(startX, currentX);
+      const top = Math.min(startY, currentY);
+      const width = Math.abs(currentX - startX);
+      const height = Math.abs(currentY - startY);
+
+      // 更新选择框
+      selectionBox.style.left = left + 'px';
+      selectionBox.style.top = top + 'px';
+      selectionBox.style.width = width + 'px';
+      selectionBox.style.height = height + 'px';
+
+      // 更新尺寸提示
+      sizeHint.textContent = `${width} × ${height}`;
+      sizeHint.style.left = (currentX + 15) + 'px';
+      sizeHint.style.top = (currentY + 15) + 'px';
+    });
+
+    // 鼠标按下开始选择
+    document.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // 只响应左键
+
+      isSelecting = true;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      selectionBox.style.left = startX + 'px';
+      selectionBox.style.top = startY + 'px';
+      selectionBox.style.width = '0';
+      selectionBox.style.height = '0';
+      selectionBox.style.display = 'block';
+      sizeHint.style.display = 'block';
+      
+      // 隐藏十字准星
+      crosshairH.style.display = 'none';
+      crosshairV.style.display = 'none';
+      instructions.style.display = 'none';
+    });
+
+    // 鼠标松开完成选择
+    document.addEventListener('mouseup', (e) => {
+      if (!isSelecting) return;
+      isSelecting = false;
+
+      const endX = e.clientX;
+      const endY = e.clientY;
+
+      // 计算选择区域
+      const bounds = {
+        x: Math.min(startX, endX),
+        y: Math.min(startY, endY),
+        width: Math.abs(endX - startX),
+        height: Math.abs(endY - startY)
+      };
+
+      // 最小尺寸检查
+      if (bounds.width < 20 || bounds.height < 20) {
+        // 区域太小，取消选择
+        window.electronAPI.cancelSelection();
+        return;
+      }
+
+      // 发送选择完成事件
+      window.electronAPI.selectionComplete(bounds);
+    });
+
+    // ESC 键取消
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.electronAPI.cancelSelection();
+      }
+    });
+
+    // 右键取消
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      window.electronAPI.cancelSelection();
+    });
+  </script>
+</body>
+</html>
+
