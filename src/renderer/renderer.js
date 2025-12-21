@@ -18,9 +18,7 @@ async function initTesseract() {
   try {
     updateStatus('⏳', '正在初始化 OCR 引擎...');
     
-    // 动态导入 Tesseract.js
-    const Tesseract = require('tesseract.js');
-    
+    // 使用全局的 Tesseract（通过 CDN 加载）
     tesseractWorker = await Tesseract.createWorker('chi_sim', 1, {
       logger: (m) => {
         if (m.status === 'recognizing text') {
@@ -47,8 +45,7 @@ async function loadQuestions() {
     questionsDB = questions;
     
     if (questions.length > 0) {
-      // 初始化 Fuse.js 模糊搜索
-      const Fuse = require('fuse.js');
+      // 初始化 Fuse.js 模糊搜索（使用全局的 Fuse，通过 CDN 加载）
       fuseInstance = new Fuse(questions, {
         keys: ['question'],
         threshold: 0.4,  // 匹配阈值，越小越严格

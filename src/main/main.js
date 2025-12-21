@@ -15,10 +15,10 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 400,
     height: 300,
-    resizable: false,
+    resizable: true,
     frame: true,
     transparent: false,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -45,10 +45,11 @@ function createMainWindow() {
 function createSelectionWindow() {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.size;
+  const { x, y } = primaryDisplay.bounds;
 
   selectionWindow = new BrowserWindow({
-    x: 0,
-    y: 0,
+    x: x,
+    y: y,
     width: width,
     height: height,
     frame: false,
@@ -57,7 +58,10 @@ function createSelectionWindow() {
     skipTaskbar: true,
     resizable: false,
     movable: false,
-    fullscreen: true,
+    // 不使用 fullscreen，在 macOS 上会导致透明失效
+    // 改用 simpleFullscreen 或直接设置窗口大小覆盖屏幕
+    simpleFullscreen: true,
+    hasShadow: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
