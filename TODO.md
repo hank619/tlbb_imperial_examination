@@ -1,0 +1,3 @@
+- [ ] 题库收集
+- [ ] electron架构理解
+- [ ] 几个dependencies的理解
