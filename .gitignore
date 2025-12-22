@@ -34,3 +34,6 @@ Thumbs.db
 *.tmp
 *.temp
 
+# 调试截图
+debug/
+

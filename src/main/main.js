@@ -58,10 +58,9 @@ function createSelectionWindow() {
     skipTaskbar: true,
     resizable: false,
     movable: false,
-    // 不使用 fullscreen，在 macOS 上会导致透明失效
-    // 改用 simpleFullscreen 或直接设置窗口大小覆盖屏幕
-    simpleFullscreen: true,
     hasShadow: false,
+    // macOS 上设置为 true 可以覆盖菜单栏
+    enableLargerThanScreen: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -71,6 +70,11 @@ function createSelectionWindow() {
 
   selectionWindow.loadFile(path.join(__dirname, '../renderer/selection.html'));
   selectionWindow.setIgnoreMouseEvents(false);
+  
+  // macOS 上设置窗口层级，确保覆盖菜单栏
+  if (process.platform === 'darwin') {
+    selectionWindow.setAlwaysOnTop(true, 'screen-saver');
+  }
 
   selectionWindow.on('closed', () => {
     selectionWindow = null;
@@ -125,20 +129,42 @@ function createAnswerWindow(answer, x, y) {
  */
 async function captureScreen(bounds) {
   try {
+    // 获取屏幕缩放因子（Retina 屏幕通常为 2）
+    const primaryDisplay = screen.getPrimaryDisplay();
+    const scaleFactor = primaryDisplay.scaleFactor;
+    
     // 使用 screenshot-desktop 截取全屏
     const imgBuffer = await screenshot({ format: 'png' });
+    
+    // 计算物理像素坐标（CSS 逻辑像素 * 缩放因子 = 物理像素）
+    const physicalBounds = {
+      left: Math.round(bounds.x * scaleFactor),
+      top: Math.round(bounds.y * scaleFactor),
+      width: Math.round(bounds.width * scaleFactor),
+      height: Math.round(bounds.height * scaleFactor)
+    };
     
     // 使用 sharp 裁剪指定区域
     const sharp = require('sharp');
     const croppedBuffer = await sharp(imgBuffer)
-      .extract({
-        left: Math.round(bounds.x),
-        top: Math.round(bounds.y),
-        width: Math.round(bounds.width),
-        height: Math.round(bounds.height)
-      })
+      .extract(physicalBounds)
       .png()
       .toBuffer();
+    
+    // DEBUG: 保存截图到根目录方便调试
+    const debugDir = path.join(__dirname, '../../debug');
+    if (!fs.existsSync(debugDir)) {
+      fs.mkdirSync(debugDir, { recursive: true });
+    }
+    const timestamp = Date.now();
+    // 保存裁剪后的截图
+    fs.writeFileSync(path.join(debugDir, `screenshot_${timestamp}.png`), croppedBuffer);
+    // 保存完整截图（可选，用于对比）
+    fs.writeFileSync(path.join(debugDir, `fullscreen_${timestamp}.png`), imgBuffer);
+    console.log(`截图已保存到: ${debugDir}/screenshot_${timestamp}.png`);
+    console.log(`屏幕缩放因子: ${scaleFactor}`);
+    console.log(`逻辑像素: x=${bounds.x}, y=${bounds.y}, width=${bounds.width}, height=${bounds.height}`);
+    console.log(`物理像素: left=${physicalBounds.left}, top=${physicalBounds.top}, width=${physicalBounds.width}, height=${physicalBounds.height}`);
     
     return croppedBuffer;
   } catch (error) {
@@ -172,7 +198,23 @@ ipcMain.on('cancel-selection', () => {
 
 // 区域选择完成
 ipcMain.on('selection-complete', async (event, bounds) => {
-  console.log('选择区域:', bounds);
+  // 获取选择窗口的实际位置，用于计算绝对屏幕坐标
+  let windowBounds = { x: 0, y: 0 };
+  if (selectionWindow) {
+    windowBounds = selectionWindow.getBounds();
+  }
+  
+  // 将窗口内的相对坐标转换为屏幕绝对坐标
+  const absoluteBounds = {
+    x: bounds.x + windowBounds.x,
+    y: bounds.y + windowBounds.y,
+    width: bounds.width,
+    height: bounds.height
+  };
+  
+  console.log('选择区域（窗口相对）:', bounds);
+  console.log('窗口位置:', windowBounds);
+  console.log('选择区域（屏幕绝对）:', absoluteBounds);
   
   // 关闭选择窗口
   if (selectionWindow) {
@@ -181,8 +223,8 @@ ipcMain.on('selection-complete', async (event, bounds) => {
   }
   
   try {
-    // 截取屏幕
-    const imageBuffer = await captureScreen(bounds);
+    // 截取屏幕（使用绝对坐标）
+    const imageBuffer = await captureScreen(absoluteBounds);
     
     // 发送给渲染进程进行 OCR 识别
     if (mainWindow) {
