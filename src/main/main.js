@@ -218,11 +218,11 @@ ipcMain.on('close-answer', () => {
 ipcMain.handle('get-questions', async () => {
   try {
     // 优先从资源目录读取，打包后使用
-    let questionsPath = path.join(process.resourcesPath, 'questions', 'questions.json');
+    let questionsPath = path.join(process.resourcesPath, 'questions', 'qna.json');
     
     // 开发模式下从项目目录读取
     if (!fs.existsSync(questionsPath)) {
-      questionsPath = path.join(__dirname, '../../questions/questions.json');
+      questionsPath = path.join(__dirname, '../../questions/qna.json');
     }
     
     if (fs.existsSync(questionsPath)) {

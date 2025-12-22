@@ -1,3 +1,3 @@
-- [ ] 题库收集
+- [x] [题库收集](https://zq.17173.com/tlbbgl/dati/)
 - [ ] electron架构理解
 - [ ] 几个dependencies的理解

@@ -206,14 +206,14 @@
         container.classList.add('not-found');
         headerIcon.textContent = '⚠️';
         headerTitle.textContent = '未找到匹配';
-        questionText.textContent = data.question || '-';
+        questionText.textContent = data.q || '-';
         answerText.textContent = '未在题库中找到匹配的答案';
       } else {
         container.classList.remove('not-found');
         headerIcon.textContent = '✅';
         headerTitle.textContent = '找到答案';
-        questionText.textContent = data.question || '-';
-        answerText.textContent = data.answer || '-';
+        questionText.textContent = data.q || '-';
+        answerText.textContent = data.a || '-';
       }
     });
 

@@ -47,7 +47,7 @@ async function loadQuestions() {
     if (questions.length > 0) {
       // 初始化 Fuse.js 模糊搜索（使用全局的 Fuse，通过 CDN 加载）
       fuseInstance = new Fuse(questions, {
-        keys: ['question'],
+        keys: ['q'],
         threshold: 0.4,  // 匹配阈值，越小越严格
         includeScore: true,
         minMatchCharLength: 3
@@ -120,7 +120,7 @@ function findAnswer(questionText) {
   
   // 方法1: 精确匹配
   for (const item of questionsDB) {
-    const cleanedQuestion = item.question.replace(/\s+/g, '');
+    const cleanedQuestion = item.q.replace(/\s+/g, '');
     if (cleanedQuestion.includes(cleanedText) || cleanedText.includes(cleanedQuestion)) {
       console.log('精确匹配成功:', item);
       return item;
@@ -142,7 +142,7 @@ function findAnswer(questionText) {
     for (const item of questionsDB) {
       let matchCount = 0;
       for (const keyword of keywords) {
-        if (item.question.includes(keyword)) {
+        if (item.q.includes(keyword)) {
           matchCount++;
         }
       }
@@ -192,8 +192,8 @@ async function processImage(data) {
       // 显示识别到的文字
       window.electronAPI.showAnswer({
         answer: {
-          question: text,
-          answer: '未找到匹配答案',
+          q: text,
+          a: '未找到匹配答案',
           notFound: true
         },
         x: bounds.x + bounds.width + 20,
