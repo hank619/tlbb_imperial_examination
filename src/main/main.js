@@ -151,20 +151,18 @@ async function captureScreen(bounds) {
       .png()
       .toBuffer();
     
-    // DEBUG: 保存截图到根目录方便调试
-    const debugDir = path.join(__dirname, '../../debug');
-    if (!fs.existsSync(debugDir)) {
-      fs.mkdirSync(debugDir, { recursive: true });
-    }
-    const timestamp = Date.now();
-    // 保存裁剪后的截图
-    fs.writeFileSync(path.join(debugDir, `screenshot_${timestamp}.png`), croppedBuffer);
-    // 保存完整截图（可选，用于对比）
-    fs.writeFileSync(path.join(debugDir, `fullscreen_${timestamp}.png`), imgBuffer);
-    console.log(`截图已保存到: ${debugDir}/screenshot_${timestamp}.png`);
-    console.log(`屏幕缩放因子: ${scaleFactor}`);
-    console.log(`逻辑像素: x=${bounds.x}, y=${bounds.y}, width=${bounds.width}, height=${bounds.height}`);
-    console.log(`物理像素: left=${physicalBounds.left}, top=${physicalBounds.top}, width=${physicalBounds.width}, height=${physicalBounds.height}`);
+    // DEBUG: 保存截图到根目录方便调试（需要时取消注释）
+    // const debugDir = path.join(__dirname, '../../debug');
+    // if (!fs.existsSync(debugDir)) {
+    //   fs.mkdirSync(debugDir, { recursive: true });
+    // }
+    // const timestamp = Date.now();
+    // fs.writeFileSync(path.join(debugDir, `screenshot_${timestamp}.png`), croppedBuffer);
+    // fs.writeFileSync(path.join(debugDir, `fullscreen_${timestamp}.png`), imgBuffer);
+    // console.log(`截图已保存到: ${debugDir}/screenshot_${timestamp}.png`);
+    // console.log(`屏幕缩放因子: ${scaleFactor}`);
+    // console.log(`逻辑像素: x=${bounds.x}, y=${bounds.y}, width=${bounds.width}, height=${bounds.height}`);
+    // console.log(`物理像素: left=${physicalBounds.left}, top=${physicalBounds.top}, width=${physicalBounds.width}, height=${physicalBounds.height}`);
     
     return croppedBuffer;
   } catch (error) {
@@ -212,9 +210,10 @@ ipcMain.on('selection-complete', async (event, bounds) => {
     height: bounds.height
   };
   
-  console.log('选择区域（窗口相对）:', bounds);
-  console.log('窗口位置:', windowBounds);
-  console.log('选择区域（屏幕绝对）:', absoluteBounds);
+  // DEBUG: 调试日志（需要时取消注释）
+  // console.log('选择区域（窗口相对）:', bounds);
+  // console.log('窗口位置:', windowBounds);
+  // console.log('选择区域（屏幕绝对）:', absoluteBounds);
   
   // 关闭选择窗口
   if (selectionWindow) {
