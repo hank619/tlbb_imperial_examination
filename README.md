@@ -16,24 +16,24 @@
 ### 环境要求
 
 - Node.js 16+
-- npm 或 yarn
+- yarn
 
 ### 安装依赖
 
 ```bash
-npm install
+yarn
 ```
 
 ### 开发模式运行
 
 ```bash
-npm start
+yarn start
 ```
 
 ### 打包 Windows 应用
 
 ```bash
-npm run build:win
+yarn build:win
 ```
 
 ## 📖 使用说明
