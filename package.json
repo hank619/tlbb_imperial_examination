@@ -5,6 +5,8 @@
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
+    "rebuild": "electron-rebuild -f -w sharp,screenshot-desktop",
+    "postinstall": "electron-rebuild -f -w sharp,screenshot-desktop",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
     "build:mac": "electron-builder --mac"
@@ -12,14 +14,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@electron/rebuild": "^4.0.2",
     "electron": "^28.0.0",
     "electron-builder": "^24.9.1"
   },
   "dependencies": {
-    "tesseract.js": "^5.0.4",
+    "fuse.js": "^7.0.0",
     "screenshot-desktop": "^1.15.0",
     "sharp": "^0.33.1",
-    "fuse.js": "^7.0.0"
+    "tesseract.js": "^5.0.4"
   },
   "build": {
     "appId": "com.tlbb.examination",
@@ -42,8 +45,16 @@
     },
     "dmg": {
       "contents": [
-        { "x": 130, "y": 220 },
-        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
       ]
     },
     "nsis": {
@@ -56,6 +67,11 @@
       "assets/**/*",
       "questions/**/*"
     ],
+    "asarUnpack": [
+      "**/node_modules/sharp/**/*",
+      "**/node_modules/@img/**/*",
+      "**/node_modules/screenshot-desktop/**/*"
+    ],
     "extraResources": [
       {
         "from": "questions",
@@ -64,4 +80,3 @@
     ]
   }
 }
-
