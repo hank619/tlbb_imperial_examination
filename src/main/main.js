@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut, screen, desktopCapturer } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, desktopCapturer } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const screenshot = require('screenshot-desktop');
@@ -331,28 +331,6 @@ ipcMain.handle('get-questions', async () => {
 // 应用就绪时创建窗口
 app.whenReady().then(() => {
   createMainWindow();
-
-  // 注册全局快捷键 Ctrl+Shift+S 触发识别
-  globalShortcut.register('CommandOrControl+Shift+S', () => {
-    if (mainWindow) {
-      mainWindow.webContents.send('trigger-recognize');
-    }
-  });
-
-  // 注册 ESC 取消选择
-  globalShortcut.register('Escape', () => {
-    if (selectionWindow) {
-      selectionWindow.close();
-      selectionWindow = null;
-      if (mainWindow) {
-        mainWindow.show();
-      }
-    }
-    if (answerWindow) {
-      answerWindow.close();
-      answerWindow = null;
-    }
-  });
 });
 
 // macOS 特殊处理
@@ -367,10 +345,5 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-});
-
-// 应用退出前注销快捷键
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
 });
 
