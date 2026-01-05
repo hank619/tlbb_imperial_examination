@@ -8,17 +8,23 @@ let mainWindow = null;
 let selectionWindow = null;
 let answerWindow = null;
 
+// 存储已设置的区域坐标
+let savedRegionBounds = null;
+
+// 当前是否为设置区域模式（区分设置区域和直接识别）
+let isSettingRegionMode = false;
+
 /**
  * 创建主窗口
  */
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 400,
-    height: 300,
+    width: 380,
+    height: 400,
     resizable: true,
     frame: true,
     transparent: false,
-    alwaysOnTop: false,
+    alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -173,8 +179,20 @@ async function captureScreen(bounds) {
 
 // IPC 事件处理
 
-// 开始区域选择
+// 开始设置区域（仅设置，不识别）
+ipcMain.on('start-set-region', () => {
+  isSettingRegionMode = true;
+  if (mainWindow) {
+    mainWindow.hide();
+  }
+  setTimeout(() => {
+    createSelectionWindow();
+  }, 200);
+});
+
+// 开始区域选择（旧接口，保留兼容）
 ipcMain.on('start-selection', () => {
+  isSettingRegionMode = false;
   if (mainWindow) {
     mainWindow.hide();
   }
@@ -210,22 +228,28 @@ ipcMain.on('selection-complete', async (event, bounds) => {
     height: bounds.height
   };
   
-  // DEBUG: 调试日志（需要时取消注释）
-  // console.log('选择区域（窗口相对）:', bounds);
-  // console.log('窗口位置:', windowBounds);
-  // console.log('选择区域（屏幕绝对）:', absoluteBounds);
-  
   // 关闭选择窗口
   if (selectionWindow) {
     selectionWindow.close();
     selectionWindow = null;
   }
   
+  // 如果是设置区域模式，只保存坐标不进行识别
+  if (isSettingRegionMode) {
+    savedRegionBounds = absoluteBounds;
+    isSettingRegionMode = false;
+    
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.webContents.send('region-saved', absoluteBounds);
+    }
+    return;
+  }
+  
+  // 否则进行截图识别
   try {
-    // 截取屏幕（使用绝对坐标）
     const imageBuffer = await captureScreen(absoluteBounds);
     
-    // 发送给渲染进程进行 OCR 识别
     if (mainWindow) {
       mainWindow.show();
       mainWindow.webContents.send('process-image', {
@@ -237,6 +261,32 @@ ipcMain.on('selection-complete', async (event, bounds) => {
     console.error('处理图像失败:', error);
     if (mainWindow) {
       mainWindow.show();
+      mainWindow.webContents.send('ocr-error', error.message);
+    }
+  }
+});
+
+// 使用已保存的区域进行识别
+ipcMain.on('recognize-with-saved-region', async () => {
+  if (!savedRegionBounds) {
+    if (mainWindow) {
+      mainWindow.webContents.send('ocr-error', '请先设置识别区域');
+    }
+    return;
+  }
+  
+  try {
+    const imageBuffer = await captureScreen(savedRegionBounds);
+    
+    if (mainWindow) {
+      mainWindow.webContents.send('process-image', {
+        imageData: imageBuffer.toString('base64'),
+        bounds: savedRegionBounds
+      });
+    }
+  } catch (error) {
+    console.error('处理图像失败:', error);
+    if (mainWindow) {
       mainWindow.webContents.send('ocr-error', error.message);
     }
   }
@@ -282,10 +332,10 @@ ipcMain.handle('get-questions', async () => {
 app.whenReady().then(() => {
   createMainWindow();
 
-  // 注册全局快捷键 Ctrl+Shift+S 开始截图
+  // 注册全局快捷键 Ctrl+Shift+S 触发识别
   globalShortcut.register('CommandOrControl+Shift+S', () => {
     if (mainWindow) {
-      mainWindow.webContents.send('trigger-selection');
+      mainWindow.webContents.send('trigger-recognize');
     }
   });
 

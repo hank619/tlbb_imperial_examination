@@ -4,7 +4,13 @@ const { contextBridge, ipcRenderer } = require('electron');
  * 暴露安全的 API 给渲染进程
  */
 contextBridge.exposeInMainWorld('electronAPI', {
-  // 开始区域选择
+  // 开始设置区域（只设置坐标，不识别）
+  startSetRegion: () => ipcRenderer.send('start-set-region'),
+  
+  // 使用已保存的区域进行识别
+  recognizeWithSavedRegion: () => ipcRenderer.send('recognize-with-saved-region'),
+  
+  // 开始区域选择（旧接口，保留兼容）
   startSelection: () => ipcRenderer.send('start-selection'),
   
   // 取消选择
@@ -25,6 +31,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // 监听事件
   onTriggerSelection: (callback) => {
     ipcRenderer.on('trigger-selection', callback);
+  },
+  
+  // 监听快捷键触发识别
+  onTriggerRecognize: (callback) => {
+    ipcRenderer.on('trigger-recognize', callback);
+  },
+  
+  // 监听区域保存完成
+  onRegionSaved: (callback) => {
+    ipcRenderer.on('region-saved', (event, bounds) => callback(bounds));
   },
   
   onProcessImage: (callback) => {

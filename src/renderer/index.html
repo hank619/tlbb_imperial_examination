@@ -18,28 +18,44 @@
     </header>
 
     <main class="main-content">
-      <div class="status-area" id="statusArea">
-        <div class="status-icon">📷</div>
-        <p class="status-text" id="statusText">准备就绪</p>
+      <div class="control-area">
+        <div class="status-row">
+          <span class="status-icon" id="statusIcon">📷</span>
+          <span class="status-text" id="statusText">准备就绪</span>
+          <span class="region-status" id="regionStatus">未设置区域</span>
+        </div>
+
+        <div class="button-group">
+          <button class="action-btn set-region-btn" id="setRegionBtn">
+            <span class="btn-icon">🎯</span>
+            <span class="btn-text">设置区域</span>
+          </button>
+
+          <button class="action-btn recognize-btn" id="recognizeBtn" disabled>
+            <span class="btn-icon">🔍</span>
+            <span class="btn-text">识别</span>
+          </button>
+        </div>
+
+        <div class="shortcut-hints">
+          <span class="shortcut-hint"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> 识别</span>
+          <span class="shortcut-hint"><kbd>ESC</kbd> 取消</span>
+        </div>
       </div>
 
-      <button class="capture-btn" id="captureBtn">
-        <span class="btn-icon">🎯</span>
-        <span class="btn-text">框选题目区域</span>
-      </button>
-
-      <div class="shortcut-hint">
-        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> 快速开始
-      </div>
-      
-      <div class="shortcut-hint">
-        <kbd>ESC</kbd> 取消选择
+      <div class="answer-area" id="answerArea">
+        <div class="answer-placeholder" id="answerPlaceholder">
+          <span class="placeholder-icon">📝</span>
+          <span class="placeholder-text">答案将显示在这里</span>
+        </div>
+        <div class="answer-content hidden" id="answerContent">
+          <div class="answer-question" id="answerQuestion"></div>
+          <div class="answer-divider"></div>
+          <div class="answer-result" id="answerResult"></div>
+        </div>
       </div>
     </main>
 
-    <footer class="footer">
-      <p class="footer-text">识别完成后答案将自动显示</p>
-    </footer>
   </div>
 
   <script src="renderer.js"></script>

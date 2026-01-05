@@ -11,6 +11,9 @@ let questionsDB = [];
 // Fuse.js 实例（模糊搜索）
 let fuseInstance = null;
 
+// 是否已设置区域
+let hasRegionSet = false;
+
 /**
  * 初始化 Tesseract Worker
  */
@@ -66,7 +69,7 @@ async function loadQuestions() {
  * 更新状态显示
  */
 function updateStatus(icon, text) {
-  const statusIcon = document.querySelector('.status-icon');
+  const statusIcon = document.getElementById('statusIcon');
   const statusText = document.getElementById('statusText');
   
   if (statusIcon) statusIcon.textContent = icon;
@@ -74,6 +77,46 @@ function updateStatus(icon, text) {
     statusText.textContent = text;
     statusText.className = text.includes('识别中') ? 'status-text processing' : 'status-text';
   }
+}
+
+/**
+ * 显示答案
+ */
+function showAnswer(result) {
+  const answerPlaceholder = document.getElementById('answerPlaceholder');
+  const answerContent = document.getElementById('answerContent');
+  const answerQuestion = document.getElementById('answerQuestion');
+  const answerResult = document.getElementById('answerResult');
+  
+  // 隐藏占位符，显示答案内容
+  answerPlaceholder.classList.add('hidden');
+  answerContent.classList.remove('hidden');
+  
+  // 设置问题文本
+  answerQuestion.textContent = result.q;
+  
+  // 设置答案
+  if (result.notFound) {
+    answerResult.textContent = result.a;
+    answerResult.classList.add('not-found');
+    answerContent.classList.add('not-found');
+  } else {
+    answerResult.textContent = result.a;
+    answerResult.classList.remove('not-found');
+    answerContent.classList.remove('not-found');
+  }
+}
+
+/**
+ * 清除答案显示
+ */
+function clearAnswer() {
+  const answerPlaceholder = document.getElementById('answerPlaceholder');
+  const answerContent = document.getElementById('answerContent');
+  
+  answerPlaceholder.classList.remove('hidden');
+  answerContent.classList.add('hidden');
+  answerContent.classList.remove('not-found');
 }
 
 /**
@@ -161,7 +204,7 @@ function findAnswer(questionText) {
  * 处理图像识别流程
  */
 async function processImage(data) {
-  const { imageData, bounds } = data;
+  const { imageData } = data;
   
   try {
     // OCR 识别
@@ -179,29 +222,17 @@ async function processImage(data) {
     
     if (result) {
       updateStatus('✅', '找到答案！');
-      
-      // 显示答案窗口
-      window.electronAPI.showAnswer({
-        answer: result,
-        x: bounds.x + bounds.width + 20,
-        y: bounds.y
-      });
+      showAnswer(result);
     } else {
-      updateStatus('⚠️', '未找到匹配的答案');
-      
-      // 显示识别到的文字
-      window.electronAPI.showAnswer({
-        answer: {
-          q: text,
-          a: '未找到匹配答案',
-          notFound: true
-        },
-        x: bounds.x + bounds.width + 20,
-        y: bounds.y
+      updateStatus('⚠️', '未找到匹配');
+      showAnswer({
+        q: text,
+        a: '未找到匹配答案',
+        notFound: true
       });
     }
     
-    // 3秒后恢复状态
+    // 3秒后恢复状态文字
     setTimeout(() => {
       updateStatus('📷', '准备就绪');
     }, 3000);
@@ -212,17 +243,62 @@ async function processImage(data) {
   }
 }
 
+/**
+ * 更新区域状态显示
+ */
+function updateRegionStatus(isSet) {
+  hasRegionSet = isSet;
+  const regionStatus = document.getElementById('regionStatus');
+  const recognizeBtn = document.getElementById('recognizeBtn');
+  
+  if (isSet) {
+    regionStatus.textContent = '✅ 区域已设置';
+    regionStatus.classList.add('set');
+    recognizeBtn.disabled = false;
+  } else {
+    regionStatus.textContent = '未设置区域';
+    regionStatus.classList.remove('set');
+    recognizeBtn.disabled = true;
+  }
+}
+
+/**
+ * 触发识别
+ */
+function triggerRecognize() {
+  if (!hasRegionSet) {
+    updateStatus('⚠️', '请先设置识别区域');
+    return;
+  }
+  window.electronAPI.recognizeWithSavedRegion();
+}
+
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', async () => {
-  // 绑定按钮事件
-  const captureBtn = document.getElementById('captureBtn');
-  captureBtn.addEventListener('click', () => {
-    window.electronAPI.startSelection();
+  // 绑定设置区域按钮事件
+  const setRegionBtn = document.getElementById('setRegionBtn');
+  setRegionBtn.addEventListener('click', () => {
+    window.electronAPI.startSetRegion();
   });
   
-  // 监听快捷键触发
-  window.electronAPI.onTriggerSelection(() => {
-    window.electronAPI.startSelection();
+  // 绑定识别按钮事件
+  const recognizeBtn = document.getElementById('recognizeBtn');
+  recognizeBtn.addEventListener('click', () => {
+    triggerRecognize();
+  });
+  
+  // 监听快捷键触发识别
+  window.electronAPI.onTriggerRecognize(() => {
+    triggerRecognize();
+  });
+  
+  // 监听区域保存完成
+  window.electronAPI.onRegionSaved((bounds) => {
+    updateRegionStatus(true);
+    updateStatus('✅', '区域设置完成');
+    setTimeout(() => {
+      updateStatus('📷', '准备就绪');
+    }, 2000);
   });
   
   // 监听图像处理请求
