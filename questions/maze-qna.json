@@ -196,203 +196,200 @@
   },
   {
     "maze": "灵鹫宫",
-    "q": "你不幸撞中一个机关，几片手掌大小的藤蔓向你袭来，少侠的选择是？",
+    "q": "你不幸踩中一个机关，几片手掌大小的薄冰向你袭来，少侠的选择是？",
     "options": [
       {"text": "侧身躲过", "subtitle": "", "recommend": false},
-      {"text": "运功接下", "subtitle": "扣10%血量，获得一个状态", "recommend": false},
-      {"text": "扔出包袱灭财消灾(需要买路财)", "subtitle": "扣除200灵鹫宫币", "recommend": false},
-      {"text": "运功消散化开", "subtitle": "获得两个状态(可能是负面)和若干秘宝", "recommend": true}
+      {"text": "运功接下", "subtitle": "扣除10%血量，获得一个状态", "recommend": false},
+      {"text": "扔出包袱灭财消灾(需要买路财)", "subtitle": "扣除200鹫宫币", "recommend": false},
+      {"text": "运功抵消化开", "subtitle": "获得两个状态(可能是负面)和若干秘宝", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一个身影突然闪现在少侠身前，似乎是多年前在此修行的大魔窟弟子，少侠的选择是？",
+    "q": "一个身影突然闪现在少侠身前，似乎是个多年前在此修行的灵鹫宫弟子，少侠的选择是？",
     "options": [
-      {"text": "深吸一口气，保持清醒", "subtitle": "获得若干经验", "recommend": false},
-      {"text": "深陷幻境与其共舞", "subtitle": "恢复20%血量，获得一个道具", "recommend": false},
-      {"text": "见义勇为", "subtitle": "无奖励", "recommend": false},
-      {"text": "行侠仗义", "subtitle": "扣20%血量，获得一个状态/秘宝", "recommend": true}
+      {"text": "屏息凝神静观其变", "subtitle": "恢复20%血量，获得一个道具", "recommend": false},
+      {"text": "先下手为强!", "subtitle": "打怪", "recommend": false},
+      {"text": "行灵鹫宫礼", "subtitle": "扣除20%血量，获得两个好状态/秘宝", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一个幽暗密室的机关石像拦在你面前，伸出利爪向你索要某物，少侠的选择是？",
+    "q": "一个鹰鹫头人身的机关石像拦在你面前，伸出利爪向你索要某物，少侠的选择是？",
     "options": [
-      {"text": "镇定自若离开", "subtitle": "无奖励", "recommend": false},
-      {"text": "以理相待", "subtitle": "恢复10%血量，获得一个状态/秘宝", "recommend": true},
-      {"text": "扔出秘钥/财宝（交出秘宝）", "subtitle": "恢复20%血量，扣除一个秘宝", "recommend": false},
-      {"text": "大义凛然拒绝（交出秘宝）", "subtitle": "扣10%血量，扣除一个秘宝，获得一个秘宝", "recommend": false}
+      {"text": "侧身闪过并离开", "subtitle": "", "recommend": false},
+      {"text": "利剑对利爪!", "subtitle": "扣除10%血量，获得一个状态/秘宝", "recommend": true},
+      {"text": "扔出包袱灭财消灾(交出秘宝来)", "subtitle": "恢复20%血量，扣除一个秘宝", "recommend": false},
+      {"text": "大丈夫能屈能伸(交出秘宝来)", "subtitle": "扣除10%血量，扣除一个秘宝，获得一个秘宝", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "这是一个拥有禁锢力的密室，其中还坐着几位人偶打坐的身影，少侠的选择是？",
+    "q": "这是一间静修禅坐的密室，其中还坐着几位似人似鬼打坐的身影，少侠的选择是？",
     "options": [
-      {"text": "还是不打扰他们吧", "subtitle": "无奖励", "recommend": false},
-      {"text": "拿走旁边的画集", "subtitle": "获得600金币和一个道具", "recommend": false},
-      {"text": "向傀儡'对话'", "subtitle": "获得一个道具", "recommend": false},
-      {"text": "攻击'傀儡'", "subtitle": "获得400金币，获得一个秘宝（可能叠在一个道具或状态）", "recommend": true}
+      {"text": "还是不打扰他们吧", "subtitle": "", "recommend": false},
+      {"text": "拿走旁边的包惠", "subtitle": "获得600鹫宫币/一个道具", "recommend": false},
+      {"text": "向'鬼魂'对话", "subtitle": "获得一个道具", "recommend": false},
+      {"text": "攻击'鬼魂'", "subtitle": "获得400鹫宫币和一个道具(可能是负面状态)", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "石龛之中，有数百年前旧古人遗下的石壁图像，刻了各种各样的图形，有人像，有兽形，还有很多记号和线条。",
+    "q": "石窟之中，有数百年前旧主人遗下的石壁图像，刻了各种各样的图形，有人像，有兽形，还有很多记号和线条。",
     "options": [
-      {"text": "什么都不看", "subtitle": "无奖励", "recommend": false},
-      {"text": "仔细研究", "subtitle": "获得600金币和一个状态/两个状态/道具及装备", "recommend": true},
-      {"text": "只看经络相关", "subtitle": "获得若干经验，恢复20%血量", "recommend": true},
-      {"text": "偷偷观察并抄写", "subtitle": "获得400金币和一个道具", "recommend": false}
+      {"text": "什么都不看", "subtitle": "", "recommend": false},
+      {"text": "粗略研习", "subtitle": "获得500鹫宫币和一个状态/两个状态(可能是负面状态)", "recommend": true},
+      {"text": "只看经脉相关", "subtitle": "恢复20%血量，获得400鹫宫币", "recommend": true},
+      {"text": "细细观看并练习", "subtitle": "获得600鹫宫币和一个负面状态", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "前方的厨房传来哭哭啼啼之声。却见妇人生死作作，嚎啕不止，少侠的选择是？",
+    "q": "前方牢房传来鬼哭狼嚎之声，那些犯人生死符发作，痛不欲生，少使的选择是？",
     "options": [
-      {"text": "视而不见", "subtitle": "无奖励", "recommend": false},
-      {"text": "长痛不如短痛", "subtitle": "扣200血量，获得一个秘宝", "recommend": true},
-      {"text": "帮什么，她会帮我（扣除300金币）", "subtitle": "扣200金币", "recommend": false},
-      {"text": "子女（需要秘宝交换）", "subtitle": "扣除一个秘宝，获得两个秘宝", "recommend": true}
+      {"text": "视面不见", "subtitle": "", "recommend": false},
+      {"text": "长痛不如短痛!", "subtitle": "打架，给300鹫宫币和一个装备", "recommend": true},
+      {"text": "鬼叫什么，纳命来!(留下买路财)", "subtitle": "扣200鹫宫币", "recommend": false},
+      {"text": "子女(需要轮宝交换)", "subtitle": "扣除一个秘宝，获取两个秘宝", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一位自称天山老前辈的老人拦住你，他说:只要给我300颗灵币，我让你一窥这仙丹。",
+    "q": "一位自称天山老前辈的老人拦住你，他说:只要给我300屋境币，我让你一颗我这仙丹。",
     "options": [
-      {"text": "不给，转身离开（留下秘钥）", "subtitle": "无奖励", "recommend": false},
-      {"text": "选择右手的红色仙丹留下秘钥", "subtitle": "扣300金币，恢复20%血量", "recommend": false},
-      {"text": "选择左手的蓝色仙丹留下秘钥", "subtitle": "扣200金币，获得一个秘宝", "recommend": true},
-      {"text": "我都要了", "subtitle": "恢复20%血量，获得一个秘宝", "recommend": true}
+      {"text": "不给，转身离开(留下买路财)", "subtitle": "", "recommend": false},
+      {"text": "选择右手的红色仙丹(留下买路财)", "subtitle": "扣除200鹫宫币，回血20%", "recommend": false},
+      {"text": "选择左手的蓝色仙丹(留下买路财)", "subtitle": "扣200鹫宫币，获得一个秘宝", "recommend": false},
+      {"text": "我都要了", "subtitle": "恢复20%血量，获取一个秘宝/状态", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "遇到一个受伤的探险者，他向你求助，少侠的选择是？",
+    "q": "遇到一个受伤的探路者，他向你求助，少侠的选择是？",
     "options": [
-      {"text": "出手相助，将其带离", "subtitle": "获得400金币和一个秘宝", "recommend": true},
-      {"text": "假装没看到，扭头就走", "subtitle": "扣除一个秘宝", "recommend": false},
-      {"text": "力所能及治疗他", "subtitle": "获得400金币", "recommend": false}
+      {"text": "出手相助，将其带离", "subtitle": "获得400鹫宫币和一个秘宝", "recommend": true},
+      {"text": "感觉诡异，掉头就走", "subtitle": "获得一个负面状态", "recommend": false},
+      {"text": "为其运功疗伤", "subtitle": "获得600鹫宫币", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "圆形于曼尊宫的集，在此处寻常，减弱尖声嚎叫，或是缓慢碰撞，少侠的选择是？",
+    "q": "横死于灵鹫宫的鬼魂，在此处游荡，或是尖声嚎叫，或是掩面嚎哭，少侠的选择是:",
     "options": [
-      {"text": "运功破除（只扣一个特殊状态）", "subtitle": "扣除两个秘宝，扣除一个状态", "recommend": false},
-      {"text": "躲是避让", "subtitle": "获得两个秘宝", "recommend": true},
-      {"text": "不予理会", "subtitle": "无奖励", "recommend": false},
-      {"text": "调经超盘", "subtitle": "获得一个秘宝", "recommend": false}
+      {"text": "运功驱散(真只扣一个特殊状态)", "subtitle": "获得两个秘宝，扣除一个状态", "recommend": false},
+      {"text": "驻足倾听", "subtitle": "获得两个秘宝", "recommend": true},
+      {"text": "不予理会", "subtitle": "", "recommend": false},
+      {"text": "诵经超度", "subtitle": "获得一个秘宝", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一座雕着古怪的大门拦在少侠面前，上字迹但模糊不清。只能看到'请勿入内'四字。少侠的选择是？",
+    "q": "一尊有鹰鹫雕像的大门拦在少侠面前，上有字但模糊不清，只能看到\"请勿入内\"四字，少侠的选择是？",
     "options": [
-      {"text": "轻叩大门", "subtitle": "获得400金币", "recommend": false},
-      {"text": "推开大门", "subtitle": "获得500金币", "recommend": false},
-      {"text": "破门而入 (纳福交换)", "subtitle": "扣200血量，并且获得一个状态", "recommend": false},
-      {"text": "运功破门而入", "subtitle": "获得400金币，获得一个状态", "recommend": true},
-      {"text": "施展魅惑技能破门而入", "subtitle": "获得400金币，获得一个状态", "recommend": true}
+      {"text": "轻叩大门", "subtitle": "获得400鹫宫币", "recommend": false},
+      {"text": "推开大门", "subtitle": "获得500鹫宫币", "recommend": true},
+      {"text": "破门而入(给我买路财才行)", "subtitle": "扣200鹫宫币，打架。但怪物会掉300鹫宫币和一个装备", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一个陌生的穿着旧天山道服的老者拦住你的去路，向你索要物件，少侠的选择是？",
+    "q": "一个枯瘦的穿着破旧天山道服的老者拦住你的去路，向你索要物件，少侠的选择是？",
     "options": [
-      {"text": "不予理会", "subtitle": "无奖励", "recommend": false},
-      {"text": "打开背包让他自己选（需用秘宝交换）", "subtitle": "扣除一个秘宝", "recommend": false},
-      {"text": "热情招待", "subtitle": "获得若干装备", "recommend": true}
+      {"text": "不予理会", "subtitle": "", "recommend": false},
+      {"text": "打开包袱让他自己选(需要秘宝交换)", "subtitle": "", "recommend": false},
+      {"text": "热情相待", "subtitle": "获得若干装备", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "发现一堆堆成山的金币，但是好像有看守的灵宫女子，少侠的选择是？",
+    "q": "发现一堆堆成山的金币，但是好像有看守的灵鹫宫弟子，少侠的选择是?",
     "options": [
-      {"text": "不要白不要", "subtitle": "获得一个状态/可能叠加，几率会扣血", "recommend": true},
-      {"text": "我财乃身外之物（扣除一个特殊状态）", "subtitle": "扣除一个状态，并获得韧性", "recommend": false}
+      {"text": "不要白不要", "subtitle": "获得一个状态(可能负面，几率很大)", "recommend": true},
+      {"text": "钱财乃身外之物(就扣一个特殊状态)", "subtitle": "扣除一个状态，并且需要打怪", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "前方寺庙前传出阵阵打斗声，两位天山武侠，一位叫李秋水，一位叫天山童姥，一位叫无崖子，还有一位叫神仙姐姐齐御风，二位正在打斗，旁边有已故天山武学，但仍能施展一掌之力。少侠的选择是？",
+    "q": "前有两位天师斗法，二位皆让你助他一臂之力，少侠的选择是?",
     "options": [
-      {"text": "替他们打伞上墙", "subtitle": "获得一个状态", "recommend": true},
-      {"text": "帮助白衣天师", "subtitle": "获得一个状态", "recommend": true},
-      {"text": "帮助灰衣天师（需有特殊状态）", "subtitle": "扣除一个状态", "recommend": false},
-      {"text": "我两个一帮（交付一个秘宝）", "subtitle": "扣除一个秘宝", "recommend": false}
+      {"text": "莫管他人瓦上霜", "subtitle": "获得一个秘宝/状态", "recommend": true},
+      {"text": "帮助白衣天师", "subtitle": "获得一个秘宝/状态", "recommend": true},
+      {"text": "帮助灰衣天师(需有特殊状态)", "subtitle": "扣除一个状态", "recommend": false},
+      {"text": "我两个一起打!(需交付一个秘宝)", "subtitle": "扣除一个秘宝", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "困入迷宫里生存的毒蛾出现在你面前，说什么'人与人要互相帮助'什么的道，少侠的选择是？",
+    "q": "潜入迷宫里生存的盗贼出现在你面前，说什么\"人与人要互相帮助\"什么的话，少侠的选择是？",
     "options": [
-      {"text": "握手打招呼离开", "subtitle": "无奖励", "recommend": false},
-      {"text": "交出他的宝物", "subtitle": "获得一个状态", "recommend": false},
-      {"text": "喝下他送的水", "subtitle": "无奖励", "recommend": false},
-      {"text": "和他结为兄弟", "subtitle": "获得两个秘宝", "recommend": true}
+      {"text": "摆手打发他离开", "subtitle": "", "recommend": false},
+      {"text": "接下他送的宝物", "subtitle": "获得一个秘宝/状态", "recommend": false},
+      {"text": "喝下他送的药水", "subtitle": "", "recommend": false},
+      {"text": "和他结为兄弟", "subtitle": "获得两个秘宝/状态", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一个身着汉服的人拦在你面前，想找你讨点盘缠",
+    "q": "一个身着似乞帮的人物拦在你面前，想找你讨点盘缠",
     "options": [
-      {"text": "不予理会（真的不要你的买路财）", "subtitle": "扣200金币", "recommend": false},
-      {"text": "给点小钱（需要买路财）", "subtitle": "扣200金币，获得一个秘宝，获得一个状态（可能叠加一个道具或状态）", "recommend": true},
-      {"text": "多给点钱让其好好活着", "subtitle": "获得2-3个秘宝/状态（可能叠加一个道具或状态）", "recommend": true}
+      {"text": "不予理会(真的不要你的买路财)", "subtitle": "", "recommend": false},
+      {"text": "给点小钱(需要买路财)", "subtitle": "扣200鹫宫币，获得3个秘宝/状态（可能存在一个负面状态）", "recommend": true},
+      {"text": "多给点让兄弟好吃好喝", "subtitle": "获得2-3个秘宝/状态（可能存在一个负面状态）", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "你的面前出现了两条岔路:左边是一层漆黑的大门,不知道里面有什么,右边是一道崎岖小路。少侠的选择是？",
+    "q": "你的面前出现了两条岔路:左边是一扇漆黑的大门，不知道里面有什么，右边是一到崎岖小路，少侠的选择是?",
     "options": [
-      {"text": "羊肠小路", "subtitle": "获得600金币", "recommend": true},
-      {"text": "推开大门", "subtitle": "获得500金币", "recommend": false}
+      {"text": "羊肠小路", "subtitle": "获得600鹫宫币", "recommend": true},
+      {"text": "推开大门", "subtitle": "获得500鹫宫币", "recommend": false}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "路边正坐着一个看起来已经坐化的曼尊宫仙人。少侠的选择是？",
+    "q": "路边正坐着一个看起来已经坐化的灵鹫宫仙人，少侠的选择是?",
     "options": [
       {"text": "行注目礼", "subtitle": "获得一个秘宝", "recommend": false},
       {"text": "翻翻他身上有什么", "subtitle": "获得一个状态", "recommend": false},
-      {"text": "丢给他，迅速远离", "subtitle": "获得1-2个状态", "recommend": true}
+      {"text": "鬼魅之物，速速远离", "subtitle": "获得1-2个状态/秘宝", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "角落里有一个神像，神桌上供奉着西岳神像。神桌上还有一支燃着的香火。你要把香火进献",
+    "q": "角落里有一个神龛，神龛上供奉着四座神像。神龛上还有一支燃着的香火，你要把香火进献给谁",
     "options": [
-      {"text": "李秋水", "subtitle": "使用一个装备/秘宝", "recommend": true},
-      {"text": "天山童姥", "subtitle": "使用一个装备/秘宝", "recommend": false},
-      {"text": "无崖子", "subtitle": "使用一个装备/秘宝", "recommend": true},
-      {"text": "神仙姐姐齐御风", "subtitle": "使用一个装备/秘宝", "recommend": true}
+      {"text": "李秋水", "subtitle": "获得一个装备/秘宝", "recommend": true},
+      {"text": "天山童姥巫行云", "subtitle": "获得装备/秘宝", "recommend": false},
+      {"text": "无崖子", "subtitle": "获得装备/秘宝", "recommend": false},
+      {"text": "神仙姐姐齐御风", "subtitle": "获得装备/秘宝", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "偌大的房间是一间墓室，似乎是天山派以前的长老。墓室中端正地放着一口玉棺，见此景象，你决定:",
+    "q": "偌大的房间是一间墓室，似乎葬着天山派以前的长老。墓室中端正地放着一口玉棺，见此景象，你决定:",
     "options": [
-      {"text": "开棺取宝", "subtitle": "获得600金币", "recommend": false},
-      {"text": "恭敬地离开", "subtitle": "获得一个装备/秘宝，扣400金币", "recommend": true}
+      {"text": "开棺查看", "subtitle": "获得600鹫宫币", "recommend": false},
+      {"text": "恭敬地绕路离开", "subtitle": "获得1个装备/秘宝, 400鹫宫币", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一扇大门前立着一个狰狞的雕像，它的前面刻着一排字:天山派长老重地，外人莫进。少侠的选择是？",
+    "q": "一扇大门前耸立着一个狮鹫的雕它的前面刻着一排字:天山派长老重地，外人莫进，少侠的选择是?",
     "options": [
-      {"text": "破门进入", "subtitle": "使用500金币获得一个负面状态", "recommend": false},
-      {"text": "推门进入", "subtitle": "无奖励", "recommend": false},
-      {"text": "运功破门进入", "subtitle": "使用400金币获得一个状态", "recommend": true},
-      {"text": "施展魅惑技能破门进入", "subtitle": "使用400金币获得一个状态", "recommend": true}
+      {"text": "敲门进入", "subtitle": "获得500鹫宫币和一个负面状态", "recommend": false},
+      {"text": "推门进入", "subtitle": "", "recommend": false},
+      {"text": "用功法破门而入", "subtitle": "获得400鹫宫币和一个状态", "recommend": true},
+      {"text": "搬起雕像砸门而入", "subtitle": "获得400鹫宫币和一个状态", "recommend": true}
     ]
   },
   {
     "maze": "灵鹫宫",
-    "q": "一条昏暗的小路，通往最后是一面混沌的镜子，少侠看到的景象是？",
+    "q": "一条昏暗的小路，通往最后是一面混沌的镜子，少侠看到的景象是?",
     "options": [
-      {"text": "堆成山的残肢断臂", "subtitle": "使用一个装备/秘宝", "recommend": true},
-      {"text": "堆成山的黄金", "subtitle": "无奖励", "recommend": false},
-      {"text": "堆成山的财宝", "subtitle": "使用一个装备/秘宝", "recommend": true},
-      {"text": "祭典战场", "subtitle": "无奖励", "recommend": false}
+      {"text": "堆成山的武林秘籍", "subtitle": "获得一个装备/秘宝", "recommend": true},
+      {"text": "堆成山的黄金", "subtitle": "", "recommend": false},
+      {"text": "堆成山的珠宝", "subtitle": "获得一个装备/秘宝", "recommend": true},
+      {"text": "杀戮战场", "subtitle": "", "recommend": false}
     ]
   }
 ]
