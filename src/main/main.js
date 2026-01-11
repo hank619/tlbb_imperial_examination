@@ -52,8 +52,8 @@ function saveRegionData(bounds) {
  */
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 380,
-    height: 400,
+    width: 520,
+    height: 520,
     resizable: true,
     frame: true,
     transparent: false,
