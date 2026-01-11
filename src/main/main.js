@@ -8,42 +8,81 @@ let mainWindow = null;
 let selectionWindow = null;
 let answerWindow = null;
 
-// 存储已设置的区域坐标
+// 存储已设置的区域坐标（科举）
 let savedRegionBounds = null;
+
+// 存储已设置的区域坐标（迷宫）
+let savedMazeRegionBounds = null;
 
 // 当前是否为设置区域模式（区分设置区域和直接识别）
 let isSettingRegionMode = false;
 
-// 获取区域数据保存路径
+// 当前设置区域的类型：'examination' 或 'maze'
+let currentRegionType = 'examination';
+
+// 获取区域数据保存路径（科举）
 function getRegionDataPath() {
   const userDataPath = app.getPath('userData');
-  return path.join(userDataPath, 'region-data.json');
+  return path.join(userDataPath, 'exam-region-data.json');
 }
 
-// 加载区域数据
+// 获取迷宫区域数据保存路径
+function getMazeRegionDataPath() {
+  const userDataPath = app.getPath('userData');
+  return path.join(userDataPath, 'maze-region-data.json');
+}
+
+// 加载区域数据（科举）
 function loadRegionData() {
   try {
     const dataPath = getRegionDataPath();
     if (fs.existsSync(dataPath)) {
       const data = fs.readFileSync(dataPath, 'utf-8');
       savedRegionBounds = JSON.parse(data);
-      console.log('区域数据加载成功:', savedRegionBounds);
+      console.log('科举区域数据加载成功:', savedRegionBounds);
       return savedRegionBounds;
     }
   } catch (error) {
-    console.error('加载区域数据失败:', error);
+    console.error('加载科举区域数据失败:', error);
   }
   return null;
 }
 
-// 保存区域数据
+// 加载迷宫区域数据
+function loadMazeRegionData() {
+  try {
+    const dataPath = getMazeRegionDataPath();
+    if (fs.existsSync(dataPath)) {
+      const data = fs.readFileSync(dataPath, 'utf-8');
+      savedMazeRegionBounds = JSON.parse(data);
+      console.log('迷宫区域数据加载成功:', savedMazeRegionBounds);
+      return savedMazeRegionBounds;
+    }
+  } catch (error) {
+    console.error('加载迷宫区域数据失败:', error);
+  }
+  return null;
+}
+
+// 保存区域数据（科举）
 function saveRegionData(bounds) {
   try {
     const dataPath = getRegionDataPath();
     fs.writeFileSync(dataPath, JSON.stringify(bounds, null, 2), 'utf-8');
-    console.log('区域数据保存成功:', bounds);
+    console.log('科举区域数据保存成功:', bounds);
   } catch (error) {
-    console.error('保存区域数据失败:', error);
+    console.error('保存科举区域数据失败:', error);
+  }
+}
+
+// 保存迷宫区域数据
+function saveMazeRegionData(bounds) {
+  try {
+    const dataPath = getMazeRegionDataPath();
+    fs.writeFileSync(dataPath, JSON.stringify(bounds, null, 2), 'utf-8');
+    console.log('迷宫区域数据保存成功:', bounds);
+  } catch (error) {
+    console.error('保存迷宫区域数据失败:', error);
   }
 }
 
@@ -106,6 +145,15 @@ function navigateToPage(page) {
   if (page === 'examination' && savedRegionBounds) {
     mainWindow.webContents.on('did-finish-load', function onLoad() {
       mainWindow.webContents.send('region-loaded', savedRegionBounds);
+      // 只执行一次，然后移除监听器
+      mainWindow.webContents.removeListener('did-finish-load', onLoad);
+    });
+  }
+  
+  // 如果是迷宫页面，加载迷宫区域数据并通知渲染进程
+  if (page === 'maze' && savedMazeRegionBounds) {
+    mainWindow.webContents.on('did-finish-load', function onLoad() {
+      mainWindow.webContents.send('maze-region-loaded', savedMazeRegionBounds);
       // 只执行一次，然后移除监听器
       mainWindow.webContents.removeListener('did-finish-load', onLoad);
     });
@@ -246,9 +294,22 @@ async function captureScreen(bounds) {
 
 // IPC 事件处理
 
-// 开始设置区域（仅设置，不识别）
+// 开始设置区域（仅设置，不识别）- 科举
 ipcMain.on('start-set-region', () => {
   isSettingRegionMode = true;
+  currentRegionType = 'examination';
+  if (mainWindow) {
+    mainWindow.hide();
+  }
+  setTimeout(() => {
+    createSelectionWindow();
+  }, 200);
+});
+
+// 开始设置迷宫区域（仅设置，不识别）
+ipcMain.on('start-set-maze-region', () => {
+  isSettingRegionMode = true;
+  currentRegionType = 'maze';
   if (mainWindow) {
     mainWindow.hide();
   }
@@ -303,13 +364,26 @@ ipcMain.on('selection-complete', async (event, bounds) => {
   
   // 如果是设置区域模式，只保存坐标不进行识别
   if (isSettingRegionMode) {
-    savedRegionBounds = absoluteBounds;
-    saveRegionData(absoluteBounds); // 保存到本地文件
-    isSettingRegionMode = false;
-    
-    if (mainWindow) {
-      mainWindow.show();
-      mainWindow.webContents.send('region-saved', absoluteBounds);
+    if (currentRegionType === 'maze') {
+      // 保存迷宫区域
+      savedMazeRegionBounds = absoluteBounds;
+      saveMazeRegionData(absoluteBounds);
+      isSettingRegionMode = false;
+      
+      if (mainWindow) {
+        mainWindow.show();
+        mainWindow.webContents.send('maze-region-saved', absoluteBounds);
+      }
+    } else {
+      // 保存科举区域
+      savedRegionBounds = absoluteBounds;
+      saveRegionData(absoluteBounds);
+      isSettingRegionMode = false;
+      
+      if (mainWindow) {
+        mainWindow.show();
+        mainWindow.webContents.send('region-saved', absoluteBounds);
+      }
     }
     return;
   }
@@ -334,7 +408,7 @@ ipcMain.on('selection-complete', async (event, bounds) => {
   }
 });
 
-// 使用已保存的区域进行识别
+// 使用已保存的区域进行识别（科举）
 ipcMain.on('recognize-with-saved-region', async () => {
   if (!savedRegionBounds) {
     if (mainWindow) {
@@ -360,6 +434,32 @@ ipcMain.on('recognize-with-saved-region', async () => {
   }
 });
 
+// 使用已保存的迷宫区域进行识别
+ipcMain.on('recognize-with-saved-maze-region', async () => {
+  if (!savedMazeRegionBounds) {
+    if (mainWindow) {
+      mainWindow.webContents.send('maze-ocr-error', '请先设置迷宫识别区域');
+    }
+    return;
+  }
+  
+  try {
+    const imageBuffer = await captureScreen(savedMazeRegionBounds);
+    
+    if (mainWindow) {
+      mainWindow.webContents.send('process-maze-image', {
+        imageData: imageBuffer.toString('base64'),
+        bounds: savedMazeRegionBounds
+      });
+    }
+  } catch (error) {
+    console.error('处理迷宫图像失败:', error);
+    if (mainWindow) {
+      mainWindow.webContents.send('maze-ocr-error', error.message);
+    }
+  }
+});
+
 // 显示答案
 ipcMain.on('show-answer', (event, data) => {
   createAnswerWindow(data.answer, data.x, data.y);
@@ -373,15 +473,15 @@ ipcMain.on('close-answer', () => {
   }
 });
 
-// 获取题库数据
+// 获取科举题库数据
 ipcMain.handle('get-questions', async () => {
   try {
     // 优先从资源目录读取，打包后使用
-    let questionsPath = path.join(process.resourcesPath, 'questions', 'qna.json');
+    let questionsPath = path.join(process.resourcesPath, 'questions', 'exam-qna.json');
     
     // 开发模式下从项目目录读取
     if (!fs.existsSync(questionsPath)) {
-      questionsPath = path.join(__dirname, '../../questions/qna.json');
+      questionsPath = path.join(__dirname, '../../questions/exam-qna.json');
     }
     
     if (fs.existsSync(questionsPath)) {
@@ -391,7 +491,30 @@ ipcMain.handle('get-questions', async () => {
     
     return [];
   } catch (error) {
-    console.error('读取题库失败:', error);
+    console.error('读取科举题库失败:', error);
+    return [];
+  }
+});
+
+// 获取迷宫题库数据
+ipcMain.handle('get-maze-questions', async () => {
+  try {
+    // 优先从资源目录读取，打包后使用
+    let questionsPath = path.join(process.resourcesPath, 'questions', 'maze-qna.json');
+    
+    // 开发模式下从项目目录读取
+    if (!fs.existsSync(questionsPath)) {
+      questionsPath = path.join(__dirname, '../../questions/maze-qna.json');
+    }
+    
+    if (fs.existsSync(questionsPath)) {
+      const data = fs.readFileSync(questionsPath, 'utf-8');
+      return JSON.parse(data);
+    }
+    
+    return [];
+  } catch (error) {
+    console.error('读取迷宫题库失败:', error);
     return [];
   }
 });
@@ -403,8 +526,9 @@ ipcMain.on('navigate-to-module', (event, module) => {
 
 // 应用就绪时创建窗口
 app.whenReady().then(() => {
-  // 加载区域数据
+  // 加载科举和迷宫区域数据
   loadRegionData();
+  loadMazeRegionData();
   
   createMainWindow();
   
@@ -412,12 +536,16 @@ app.whenReady().then(() => {
   setTimeout(() => {
     // 注册全局快捷键 F9 触发识别
     const ret = globalShortcut.register('F9', () => {
-      if (savedRegionBounds && mainWindow && !mainWindow.isDestroyed()) {
-        // 检查当前是否在科举页面
+      if (mainWindow && !mainWindow.isDestroyed()) {
         const url = mainWindow.webContents.getURL();
-        if (url.includes('examination.html')) {
-          // 触发识别（通过 IPC 事件）
+        
+        // 根据当前页面判断触发哪种识别
+        if (url.includes('examination.html') && savedRegionBounds) {
+          // 科举页面：触发科举识别
           mainWindow.webContents.send('trigger-recognize');
+        } else if (url.includes('maze.html') && savedMazeRegionBounds) {
+          // 迷宫页面：触发迷宫识别
+          mainWindow.webContents.send('trigger-maze-recognize');
         }
       }
     });
