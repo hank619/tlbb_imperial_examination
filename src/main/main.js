@@ -3,6 +3,15 @@ const path = require('path');
 const fs = require('fs');
 const screenshot = require('screenshot-desktop');
 
+// 设置应用名称，避免与其他 Electron 应用共享窗口状态
+app.setName('tlbb-assistant');
+
+// 在开发模式下，确保使用唯一的用户数据目录，避免影响其他 Electron 应用
+if (!app.isPackaged) {
+  const customUserDataPath = path.join(app.getPath('appData'), 'tlbb-assistant-dev');
+  app.setPath('userData', customUserDataPath);
+}
+
 // 存储窗口引用
 let mainWindow = null;
 let selectionWindow = null;
@@ -93,6 +102,7 @@ function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 520,
     height: 520,
+    center: true,  // 窗口居中显示
     resizable: true,
     frame: true,
     transparent: false,
