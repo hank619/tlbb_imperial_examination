@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' blob: data: https://cdn.jsdelivr.net https://unpkg.com; worker-src 'self' blob: https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' data: blob: https://cdn.jsdelivr.net https://unpkg.com https://tessdata.projectnaptha.com; child-src 'self' blob:;">
-  <title>天龙八部科举助手</title>
+  <title>天龙助手 - 科举</title>
   <link rel="stylesheet" href="styles.css">
   <!-- 加载 Tesseract.js 和 Fuse.js (浏览器版本) -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -15,6 +15,7 @@
     <header class="header">
       <h1>🎓 科举答题助手</h1>
       <p class="subtitle">天龙八部科举考试辅助工具</p>
+      <button class="back-home-btn" id="backHomeBtn" title="返回首页">🏠</button>
     </header>
 
     <main class="main-content">
@@ -38,7 +39,7 @@
         </div>
 
         <div class="shortcut-hints">
-          <span class="shortcut-hint"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> 识别</span>
+          <span class="shortcut-hint"><kbd>F12</kbd> 识别</span>
           <span class="shortcut-hint"><kbd>ESC</kbd> 取消</span>
         </div>
       </div>
@@ -61,4 +62,3 @@
   <script src="renderer.js"></script>
 </body>
 </html>
-

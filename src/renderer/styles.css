@@ -71,6 +71,31 @@ body::before {
   position: relative;
 }
 
+.back-home-btn {
+  -webkit-app-region: no-drag;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-home-btn:hover {
+  background: var(--primary-color);
+  border-color: var(--accent-color);
+  transform: scale(1.1);
+}
+
 .header::after {
   content: '';
   position: absolute;

@@ -275,6 +275,14 @@ function triggerRecognize() {
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', async () => {
+  // 绑定返回首页按钮事件
+  const backHomeBtn = document.getElementById('backHomeBtn');
+  if (backHomeBtn) {
+    backHomeBtn.addEventListener('click', () => {
+      window.electronAPI.navigateToModule('home');
+    });
+  }
+  
   // 绑定设置区域按钮事件
   const setRegionBtn = document.getElementById('setRegionBtn');
   setRegionBtn.addEventListener('click', () => {
@@ -299,6 +307,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => {
       updateStatus('📷', '准备就绪');
     }, 2000);
+  });
+  
+  // 监听区域数据加载（从本地文件加载）
+  window.electronAPI.onRegionLoaded((bounds) => {
+    if (bounds) {
+      updateRegionStatus(true);
+      updateStatus('📷', '准备就绪');
+    }
   });
   
   // 监听图像处理请求

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, screen, desktopCapturer } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, desktopCapturer, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const screenshot = require('screenshot-desktop');
@@ -13,6 +13,39 @@ let savedRegionBounds = null;
 
 // 当前是否为设置区域模式（区分设置区域和直接识别）
 let isSettingRegionMode = false;
+
+// 获取区域数据保存路径
+function getRegionDataPath() {
+  const userDataPath = app.getPath('userData');
+  return path.join(userDataPath, 'region-data.json');
+}
+
+// 加载区域数据
+function loadRegionData() {
+  try {
+    const dataPath = getRegionDataPath();
+    if (fs.existsSync(dataPath)) {
+      const data = fs.readFileSync(dataPath, 'utf-8');
+      savedRegionBounds = JSON.parse(data);
+      console.log('区域数据加载成功:', savedRegionBounds);
+      return savedRegionBounds;
+    }
+  } catch (error) {
+    console.error('加载区域数据失败:', error);
+  }
+  return null;
+}
+
+// 保存区域数据
+function saveRegionData(bounds) {
+  try {
+    const dataPath = getRegionDataPath();
+    fs.writeFileSync(dataPath, JSON.stringify(bounds, null, 2), 'utf-8');
+    console.log('区域数据保存成功:', bounds);
+  } catch (error) {
+    console.error('保存区域数据失败:', error);
+  }
+}
 
 /**
  * 创建主窗口
@@ -32,7 +65,8 @@ function createMainWindow() {
     }
   });
 
-  mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+  // 默认加载首页
+  navigateToPage('home');
   
   // 开发模式下打开开发者工具
   if (process.env.NODE_ENV === 'development') {
@@ -43,6 +77,39 @@ function createMainWindow() {
     mainWindow = null;
     app.quit();
   });
+}
+
+/**
+ * 导航到指定页面
+ */
+function navigateToPage(page) {
+  if (!mainWindow) return;
+  
+  let htmlFile = '';
+  switch (page) {
+    case 'home':
+      htmlFile = 'home.html';
+      break;
+    case 'examination':
+      htmlFile = 'examination.html';
+      break;
+    case 'maze':
+      htmlFile = 'maze.html';
+      break;
+    default:
+      htmlFile = 'home.html';
+  }
+  
+  mainWindow.loadFile(path.join(__dirname, '../renderer', htmlFile));
+  
+  // 如果是科举页面，加载区域数据并通知渲染进程
+  if (page === 'examination' && savedRegionBounds) {
+    mainWindow.webContents.on('did-finish-load', function onLoad() {
+      mainWindow.webContents.send('region-loaded', savedRegionBounds);
+      // 只执行一次，然后移除监听器
+      mainWindow.webContents.removeListener('did-finish-load', onLoad);
+    });
+  }
 }
 
 /**
@@ -237,6 +304,7 @@ ipcMain.on('selection-complete', async (event, bounds) => {
   // 如果是设置区域模式，只保存坐标不进行识别
   if (isSettingRegionMode) {
     savedRegionBounds = absoluteBounds;
+    saveRegionData(absoluteBounds); // 保存到本地文件
     isSettingRegionMode = false;
     
     if (mainWindow) {
@@ -328,9 +396,43 @@ ipcMain.handle('get-questions', async () => {
   }
 });
 
+// 导航到模块
+ipcMain.on('navigate-to-module', (event, module) => {
+  navigateToPage(module);
+});
+
 // 应用就绪时创建窗口
 app.whenReady().then(() => {
+  // 加载区域数据
+  loadRegionData();
+  
   createMainWindow();
+  
+  // 等待窗口创建完成后再注册快捷键
+  setTimeout(() => {
+    // 注册全局快捷键 F12 触发识别
+    const ret = globalShortcut.register('F12', () => {
+      if (savedRegionBounds && mainWindow && !mainWindow.isDestroyed()) {
+        // 检查当前是否在科举页面
+        const url = mainWindow.webContents.getURL();
+        if (url.includes('examination.html')) {
+          // 触发识别（通过 IPC 事件）
+          mainWindow.webContents.send('trigger-recognize');
+        }
+      }
+    });
+    
+    if (ret) {
+      console.log('F12 快捷键已注册');
+    } else {
+      console.log('F12 快捷键注册失败');
+    }
+  }, 1000);
+});
+
+// 应用退出时注销快捷键
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });
 
 // macOS 特殊处理

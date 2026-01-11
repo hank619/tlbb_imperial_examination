@@ -1,7 +1,7 @@
 {
-  "name": "tlbb-imperial-examination",
+  "name": "tlbb-assistant",
   "version": "1.0.0",
-  "description": "天龙八部科举答题助手 - 通过OCR识别屏幕文字并匹配题库答案",
+  "description": "天龙助手 - 天龙八部游戏辅助工具",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
@@ -25,8 +25,8 @@
     "tesseract.js": "^5.0.4"
   },
   "build": {
-    "appId": "com.tlbb.examination",
-    "productName": "天龙八部科举助手",
+    "appId": "com.tlbb.assistant",
+    "productName": "天龙助手",
     "directories": {
       "output": "dist"
     },

@@ -38,9 +38,17 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('trigger-recognize', callback);
   },
   
+  // 导航到模块
+  navigateToModule: (module) => ipcRenderer.send('navigate-to-module', module),
+  
   // 监听区域保存完成
   onRegionSaved: (callback) => {
     ipcRenderer.on('region-saved', (event, bounds) => callback(bounds));
+  },
+  
+  // 监听区域数据加载
+  onRegionLoaded: (callback) => {
+    ipcRenderer.on('region-loaded', (event, bounds) => callback(bounds));
   },
   
   onProcessImage: (callback) => {

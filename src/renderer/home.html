@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天龙助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .home-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .home-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .home-header h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--accent-color);
+      text-shadow: 0 0 15px var(--accent-glow);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+
+    .home-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .module-grid {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .module-card {
+      -webkit-app-region: no-drag;
+      width: 200px;
+      height: 200px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px var(--shadow-color),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .module-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-color);
+      box-shadow: 
+        0 8px 25px var(--shadow-color),
+        0 0 30px var(--accent-glow);
+    }
+
+    .module-icon {
+      font-size: 48px;
+      filter: drop-shadow(0 0 10px var(--accent-glow));
+    }
+
+    .module-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text-primary);
+    }
+
+    .module-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-container">
+    <div class="home-header">
+      <h1>🐉 天龙助手</h1>
+      <p>选择功能模块</p>
+    </div>
+
+    <div class="module-grid">
+      <div class="module-card" id="examinationModule">
+        <div class="module-icon">🎓</div>
+        <div class="module-title">科举答题</div>
+        <div class="module-desc">OCR识别题目并匹配答案</div>
+      </div>
+
+      <div class="module-card" id="mazeModule">
+        <div class="module-icon">🧩</div>
+        <div class="module-title">迷宫</div>
+        <div class="module-desc">功能开发中...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 点击科举模块
+    document.getElementById('examinationModule').addEventListener('click', () => {
+      window.electronAPI.navigateToModule('examination');
+    });
+
+    // 点击迷宫模块
+    document.getElementById('mazeModule').addEventListener('click', () => {
+      window.electronAPI.navigateToModule('maze');
+    });
+  </script>
+</body>
+</html>
