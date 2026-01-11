@@ -198,10 +198,10 @@
     "maze": "灵鹫宫",
     "q": "你不幸撞中一个机关，几片手掌大小的藤蔓向你袭来，少侠的选择是？",
     "options": [
-      {"text": "闪身躲过", "subtitle": "无奖励", "recommend": false},
-      {"text": "运功挡下", "subtitle": "扣10%血量，获得一个状态", "recommend": false},
-      {"text": "扔出秘钥/财宝（扣除一个秘宝/一定金币）", "subtitle": "扣300金币", "recommend": false},
-      {"text": "运功消散化开", "subtitle": "获得四个秘宝可能叠加成若干秘宝", "recommend": true}
+      {"text": "侧身躲过", "subtitle": "", "recommend": false},
+      {"text": "运功接下", "subtitle": "扣10%血量，获得一个状态", "recommend": false},
+      {"text": "扔出包袱灭财消灾(需要买路财)", "subtitle": "扣除200灵鹫宫币", "recommend": false},
+      {"text": "运功消散化开", "subtitle": "获得两个状态(可能是负面)和若干秘宝", "recommend": true}
     ]
   },
   {

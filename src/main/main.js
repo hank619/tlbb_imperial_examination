@@ -101,7 +101,7 @@ function saveMazeRegionData(bounds) {
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 520,
-    height: 520,
+    height: 620,
     center: true,  // 窗口居中显示
     resizable: true,
     frame: true,
