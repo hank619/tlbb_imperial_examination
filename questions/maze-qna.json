@@ -1,10 +1,398 @@
 [
   {
-    "q": "示例迷宫问题1",
-    "a": "示例答案1"
+    "maze": "火焰山",
+    "q": "有一扇大门，大门上有两个门环门上雕着一朵九瓣莲花，莲中央有一颗突起的莲子。门前游坐着一名学灯的童子，它的手中举着一石灯。如若让你选择打开的方式，你会选择？",
+    "options": [
+      {"text": "按下莲子", "subtitle": "获得10%血量，获得若干装备/秘宝", "recommend": true},
+      {"text": "推开大门 (需提交秘宝)", "subtitle": "扣200血量", "recommend": false},
+      {"text": "点亮石灯", "subtitle": "获得若干装备", "recommend": false}
+    ]
   },
   {
-    "q": "示例迷宫问题2",
-    "a": "示例答案2"
+    "maze": "火焰山",
+    "q": "有个诡异的石碑,石碑上刻着两行小字,你选择哪个?",
+    "options": [
+      {"text": "直接离开", "subtitle": "无奖励", "recommend": true},
+      {"text": "给它财宝", "subtitle": "扣100金币", "recommend": false},
+      {"text": "给它宝物（交出秘宝）", "subtitle": "获得若干经验，扣除一个秘宝", "recommend": false},
+      {"text": "给它财宝，给它宝物两个都选择（交出秘宝）", "subtitle": "获得若干经验，扣除一个秘宝，扣100金币", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一位身穿大红嫁衣的女子拦住了你们。她说：'今天是我出嫁的日子,我可以送你们一样物品,你们要什么?'",
+    "options": [
+      {"text": "什么都不要", "subtitle": "无奖励", "recommend": false},
+      {"text": "口中的玉石", "subtitle": "获得若干经验", "recommend": true},
+      {"text": "头上的未取", "subtitle": "恢复20%血量，获得若干角色属性", "recommend": false},
+      {"text": "身上的嫁衣", "subtitle": "获得一件装备，增加100金币", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "段誉一直喊的神仙姐姐,这位神仙姐姐究竟是?",
+    "options": [
+      {"text": "是曼陀山庄女子", "subtitle": "恢复20%血量，获得若干装备", "recommend": true},
+      {"text": "是海心小姐姐", "subtitle": "无奖励", "recommend": false},
+      {"text": "是灵宫女子", "subtitle": "扣20%血量，获得若干装备", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "这是一个堆满了宝箱的房间,触眼所及都是光辉灿烂的宝物怎么办?",
+    "options": [
+      {"text": "滚蛋离开", "subtitle": "无奖励", "recommend": false},
+      {"text": "拿走绿色宝石", "subtitle": "获得若干经验，获得一个秘宝", "recommend": true},
+      {"text": "拿走曲子", "subtitle": "获得若干装备", "recommend": true},
+      {"text": "拿走其他值钱的", "subtitle": "获得若干装备", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "前面是一扇门,门的左边有一副浮雕,浮雕下刻着一句诗,诗少一个字。在浮雕上,还有几个零散的字。诗句是:丈夫天生不才,而与红妆【】比高低,该用哪个字填上呢?",
+    "options": [
+      {"text": "姉", "subtitle": "无奖励", "recommend": false},
+      {"text": "兄弟", "subtitle": "扣17血量", "recommend": false},
+      {"text": "红颜", "subtitle": "扣200金币，再扣100血量，并扣70经验", "recommend": true},
+      {"text": "子女 (需要秘宝交换)", "subtitle": "获得若干装备，扣除一个秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "你的面前出现了两条岔路:左边是一层漆黑的大门,不知道里面有什么;右边是岩浆地。你准备选哪条路?",
+    "options": [
+      {"text": "岩浆池", "subtitle": "获得若干秘宝", "recommend": false},
+      {"text": "推开大门", "subtitle": "获得若干装备", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "遇到一个受伤的人,他向你求助,请选择你的决定:",
+    "options": [
+      {"text": "帮他,跟他一起走", "subtitle": "获得若干秘宝，获得若干经验", "recommend": true},
+      {"text": "你不理会", "subtitle": "无奖励", "recommend": false},
+      {"text": "给予帮助,停下来帮助", "subtitle": "获得若干秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "发现一堆堆成山的金币,但是好像有看守的人,请做选择",
+    "options": [
+      {"text": "过去看看", "subtitle": "无奖励", "recommend": true},
+      {"text": "不予理会 (需要一个秘宝)", "subtitle": "扣17血量", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一个神秘的人拦住了你的路,他说:只要给我200币,我让你在我的灵家为一会。",
+    "options": [
+      {"text": "不给,转身离开", "subtitle": "无奖励", "recommend": false},
+      {"text": "抢劫他 (提交道具)", "subtitle": "扣20%血量，扣200金币", "recommend": true},
+      {"text": "考虑是否抢劫", "subtitle": "获得若干金币秘宝，扣除200秘宝", "recommend": true},
+      {"text": "打盗，再给一个秘宝", "subtitle": "扣20%血量，获得秘宝，回复300秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "遇到一个戴面纱的女士,她一边同换子,一边让你回答上了年纪的她还美么？需要一个秘宝)",
+    "options": [
+      {"text": "老了,很可怕 (需要一个秘宝)", "subtitle": "获得秘宝，但会损失一个秘宝", "recommend": true},
+      {"text": "没老,你很美", "subtitle": "无奖励", "recommend": false},
+      {"text": "不予理会", "subtitle": "无奖励", "recommend": false},
+      {"text": "夸她很美", "subtitle": "获得秘宝和经验", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一位商人拦住了你:我们来做个游戏好不好?你让我随便拿走一件东西,我可能什么都不给你,也可能给你一件高价值的宝贝",
+    "options": [
+      {"text": "不予理会", "subtitle": "扣200金币", "recommend": false},
+      {"text": "答应他 (需交换)", "subtitle": "获得若干装备", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一位慈祥的老婆婆拦住了你年轻人,喝口水再走吧,这里有水和甜汤",
+    "options": [
+      {"text": "都不喝", "subtitle": "扣除100金币", "recommend": false},
+      {"text": "喝甜汤", "subtitle": "获得一个秘宝", "recommend": true},
+      {"text": "喝白水", "subtitle": "恢复20%血量", "recommend": false},
+      {"text": "喝金银汤", "subtitle": "获得若干金币和秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一个人拦住了你打赌吗?我这里有好东西哦",
+    "options": [
+      {"text": "不予理会 (真的不要你的买财)", "subtitle": "无奖励", "recommend": false},
+      {"text": "打赌200", "subtitle": "获得若干秘宝", "recommend": true},
+      {"text": "打赌800", "subtitle": "获得若干秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "你的面前出现了两条岔路:左边是一层漆黑的大门,不知连里面有什么,右边是一道绕组小路,你选哪条路",
+    "options": [
+      {"text": "羊肠小路", "subtitle": "获得若干秘宝", "recommend": true},
+      {"text": "推开大门", "subtitle": "无奖励", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "你的面前有两个人,左边是一个那厚的中年男子,石边是一位美妇人,中年男子面色统,同你论少保要小心,那女子不是好人,你随我去吧,女子同时惊叫道:少侠不要相信他。你相信谁呢?",
+    "options": [
+      {"text": "谁也不信", "subtitle": "获得若干秘宝", "recommend": false},
+      {"text": "信女子", "subtitle": "获得若干装备", "recommend": true},
+      {"text": "信男子 (需要一个秘宝)", "subtitle": "扣除一个秘宝", "recommend": false},
+      {"text": "全都信 (需交一个秘宝！)", "subtitle": "扣除一个秘宝", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "石门前岛立着一座石碑,你觉得它:",
+    "options": [
+      {"text": "会活过来", "subtitle": "获得若干装备", "recommend": true},
+      {"text": "是普通的石碑", "subtitle": "无奖励", "recommend": false},
+      {"text": "不予理会", "subtitle": "获得若干秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "角落里有一个种盘,神装上供奉着四座神像。神盘上还有一支燃着的香火。你要把香火进献",
+    "options": [
+      {"text": "李秋水", "subtitle": "获得装备/秘宝", "recommend": true},
+      {"text": "天山童巫行云", "subtitle": "获得装备/秘宝", "recommend": false},
+      {"text": "无崖子", "subtitle": "获得装备/秘宝", "recommend": true},
+      {"text": "神仙姐姐齐御风", "subtitle": "获得装备/秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一扇大门前立着一只猪的雕像,它的前面刻看一持字报报我就放你过去,那你委接哪里",
+    "options": [
+      {"text": "摸猪身", "subtitle": "获得若干装备/秘宝", "recommend": true},
+      {"text": "摸猪尾", "subtitle": "获得若干装备/秘宝", "recommend": true},
+      {"text": "摸猪腿", "subtitle": "无奖励", "recommend": false},
+      {"text": "摸猪头", "subtitle": "无奖励", "recommend": false}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "路的尽头是一间整座,墓室中端正地放着一口玉枪,见此景象,你决定:",
+    "options": [
+      {"text": "促然猛兽,开棺取宝", "subtitle": "扣600金币", "recommend": false},
+      {"text": "恭敬地离开", "subtitle": "获得若干装备/秘宝，扣400金币", "recommend": true}
+    ]
+  },
+  {
+    "maze": "火焰山",
+    "q": "一般昏暗的小路,通往最后是一直混沌的镜子,你从镜子里看到了什么样的景象了",
+    "options": [
+      {"text": "堆成山的残肢断臂", "subtitle": "获得若干装备/秘宝", "recommend": true},
+      {"text": "堆成山的莫金", "subtitle": "无奖励", "recommend": false},
+      {"text": "堆成山的渣金", "subtitle": "获得若干装备/秘宝", "recommend": true},
+      {"text": "祭典战场", "subtitle": "无奖励", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "你不幸撞中一个机关，几片手掌大小的藤蔓向你袭来，少侠的选择是？",
+    "options": [
+      {"text": "闪身躲过", "subtitle": "无奖励", "recommend": false},
+      {"text": "运功挡下", "subtitle": "扣10%血量，获得一个状态", "recommend": false},
+      {"text": "扔出秘钥/财宝（扣除一个秘宝/一定金币）", "subtitle": "扣300金币", "recommend": false},
+      {"text": "运功消散化开", "subtitle": "获得四个秘宝可能叠加成若干秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一个身影突然闪现在少侠身前，似乎是多年前在此修行的大魔窟弟子，少侠的选择是？",
+    "options": [
+      {"text": "深吸一口气，保持清醒", "subtitle": "获得若干经验", "recommend": false},
+      {"text": "深陷幻境与其共舞", "subtitle": "恢复20%血量，获得一个道具", "recommend": false},
+      {"text": "见义勇为", "subtitle": "无奖励", "recommend": false},
+      {"text": "行侠仗义", "subtitle": "扣20%血量，获得一个状态/秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一个幽暗密室的机关石像拦在你面前，伸出利爪向你索要某物，少侠的选择是？",
+    "options": [
+      {"text": "镇定自若离开", "subtitle": "无奖励", "recommend": false},
+      {"text": "以理相待", "subtitle": "恢复10%血量，获得一个状态/秘宝", "recommend": true},
+      {"text": "扔出秘钥/财宝（交出秘宝）", "subtitle": "恢复20%血量，扣除一个秘宝", "recommend": false},
+      {"text": "大义凛然拒绝（交出秘宝）", "subtitle": "扣10%血量，扣除一个秘宝，获得一个秘宝", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "这是一个拥有禁锢力的密室，其中还坐着几位人偶打坐的身影，少侠的选择是？",
+    "options": [
+      {"text": "还是不打扰他们吧", "subtitle": "无奖励", "recommend": false},
+      {"text": "拿走旁边的画集", "subtitle": "获得600金币和一个道具", "recommend": false},
+      {"text": "向傀儡'对话'", "subtitle": "获得一个道具", "recommend": false},
+      {"text": "攻击'傀儡'", "subtitle": "获得400金币，获得一个秘宝（可能叠在一个道具或状态）", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "石龛之中，有数百年前旧古人遗下的石壁图像，刻了各种各样的图形，有人像，有兽形，还有很多记号和线条。",
+    "options": [
+      {"text": "什么都不看", "subtitle": "无奖励", "recommend": false},
+      {"text": "仔细研究", "subtitle": "获得600金币和一个状态/两个状态/道具及装备", "recommend": true},
+      {"text": "只看经络相关", "subtitle": "获得若干经验，恢复20%血量", "recommend": true},
+      {"text": "偷偷观察并抄写", "subtitle": "获得400金币和一个道具", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "前方的厨房传来哭哭啼啼之声。却见妇人生死作作，嚎啕不止，少侠的选择是？",
+    "options": [
+      {"text": "视而不见", "subtitle": "无奖励", "recommend": false},
+      {"text": "长痛不如短痛", "subtitle": "扣200血量，获得一个秘宝", "recommend": true},
+      {"text": "帮什么，她会帮我（扣除300金币）", "subtitle": "扣200金币", "recommend": false},
+      {"text": "子女（需要秘宝交换）", "subtitle": "扣除一个秘宝，获得两个秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一位自称天山老前辈的老人拦住你，他说:只要给我300颗灵币，我让你一窥这仙丹。",
+    "options": [
+      {"text": "不给，转身离开（留下秘钥）", "subtitle": "无奖励", "recommend": false},
+      {"text": "选择右手的红色仙丹留下秘钥", "subtitle": "扣300金币，恢复20%血量", "recommend": false},
+      {"text": "选择左手的蓝色仙丹留下秘钥", "subtitle": "扣200金币，获得一个秘宝", "recommend": true},
+      {"text": "我都要了", "subtitle": "恢复20%血量，获得一个秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "遇到一个受伤的探险者，他向你求助，少侠的选择是？",
+    "options": [
+      {"text": "出手相助，将其带离", "subtitle": "获得400金币和一个秘宝", "recommend": true},
+      {"text": "假装没看到，扭头就走", "subtitle": "扣除一个秘宝", "recommend": false},
+      {"text": "力所能及治疗他", "subtitle": "获得400金币", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "圆形于曼尊宫的集，在此处寻常，减弱尖声嚎叫，或是缓慢碰撞，少侠的选择是？",
+    "options": [
+      {"text": "运功破除（只扣一个特殊状态）", "subtitle": "扣除两个秘宝，扣除一个状态", "recommend": false},
+      {"text": "躲是避让", "subtitle": "获得两个秘宝", "recommend": true},
+      {"text": "不予理会", "subtitle": "无奖励", "recommend": false},
+      {"text": "调经超盘", "subtitle": "获得一个秘宝", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一座雕着古怪的大门拦在少侠面前，上字迹但模糊不清。只能看到'请勿入内'四字。少侠的选择是？",
+    "options": [
+      {"text": "轻叩大门", "subtitle": "获得400金币", "recommend": false},
+      {"text": "推开大门", "subtitle": "获得500金币", "recommend": false},
+      {"text": "破门而入 (纳福交换)", "subtitle": "扣200血量，并且获得一个状态", "recommend": false},
+      {"text": "运功破门而入", "subtitle": "获得400金币，获得一个状态", "recommend": true},
+      {"text": "施展魅惑技能破门而入", "subtitle": "获得400金币，获得一个状态", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一个陌生的穿着旧天山道服的老者拦住你的去路，向你索要物件，少侠的选择是？",
+    "options": [
+      {"text": "不予理会", "subtitle": "无奖励", "recommend": false},
+      {"text": "打开背包让他自己选（需用秘宝交换）", "subtitle": "扣除一个秘宝", "recommend": false},
+      {"text": "热情招待", "subtitle": "获得若干装备", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "发现一堆堆成山的金币，但是好像有看守的灵宫女子，少侠的选择是？",
+    "options": [
+      {"text": "不要白不要", "subtitle": "获得一个状态/可能叠加，几率会扣血", "recommend": true},
+      {"text": "我财乃身外之物（扣除一个特殊状态）", "subtitle": "扣除一个状态，并获得韧性", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "前方寺庙前传出阵阵打斗声，两位天山武侠，一位叫李秋水，一位叫天山童姥，一位叫无崖子，还有一位叫神仙姐姐齐御风，二位正在打斗，旁边有已故天山武学，但仍能施展一掌之力。少侠的选择是？",
+    "options": [
+      {"text": "替他们打伞上墙", "subtitle": "获得一个状态", "recommend": true},
+      {"text": "帮助白衣天师", "subtitle": "获得一个状态", "recommend": true},
+      {"text": "帮助灰衣天师（需有特殊状态）", "subtitle": "扣除一个状态", "recommend": false},
+      {"text": "我两个一帮（交付一个秘宝）", "subtitle": "扣除一个秘宝", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "困入迷宫里生存的毒蛾出现在你面前，说什么'人与人要互相帮助'什么的道，少侠的选择是？",
+    "options": [
+      {"text": "握手打招呼离开", "subtitle": "无奖励", "recommend": false},
+      {"text": "交出他的宝物", "subtitle": "获得一个状态", "recommend": false},
+      {"text": "喝下他送的水", "subtitle": "无奖励", "recommend": false},
+      {"text": "和他结为兄弟", "subtitle": "获得两个秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一个身着汉服的人拦在你面前，想找你讨点盘缠",
+    "options": [
+      {"text": "不予理会（真的不要你的买路财）", "subtitle": "扣200金币", "recommend": false},
+      {"text": "给点小钱（需要买路财）", "subtitle": "扣200金币，获得一个秘宝，获得一个状态（可能叠加一个道具或状态）", "recommend": true},
+      {"text": "多给点钱让其好好活着", "subtitle": "获得2-3个秘宝/状态（可能叠加一个道具或状态）", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "你的面前出现了两条岔路:左边是一层漆黑的大门,不知道里面有什么,右边是一道崎岖小路。少侠的选择是？",
+    "options": [
+      {"text": "羊肠小路", "subtitle": "获得600金币", "recommend": true},
+      {"text": "推开大门", "subtitle": "获得500金币", "recommend": false}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "路边正坐着一个看起来已经坐化的曼尊宫仙人。少侠的选择是？",
+    "options": [
+      {"text": "行注目礼", "subtitle": "获得一个秘宝", "recommend": false},
+      {"text": "翻翻他身上有什么", "subtitle": "获得一个状态", "recommend": false},
+      {"text": "丢给他，迅速远离", "subtitle": "获得1-2个状态", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "角落里有一个神像，神桌上供奉着西岳神像。神桌上还有一支燃着的香火。你要把香火进献",
+    "options": [
+      {"text": "李秋水", "subtitle": "使用一个装备/秘宝", "recommend": true},
+      {"text": "天山童姥", "subtitle": "使用一个装备/秘宝", "recommend": false},
+      {"text": "无崖子", "subtitle": "使用一个装备/秘宝", "recommend": true},
+      {"text": "神仙姐姐齐御风", "subtitle": "使用一个装备/秘宝", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "偌大的房间是一间墓室，似乎是天山派以前的长老。墓室中端正地放着一口玉棺，见此景象，你决定:",
+    "options": [
+      {"text": "开棺取宝", "subtitle": "获得600金币", "recommend": false},
+      {"text": "恭敬地离开", "subtitle": "获得一个装备/秘宝，扣400金币", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一扇大门前立着一个狰狞的雕像，它的前面刻着一排字:天山派长老重地，外人莫进。少侠的选择是？",
+    "options": [
+      {"text": "破门进入", "subtitle": "使用500金币获得一个负面状态", "recommend": false},
+      {"text": "推门进入", "subtitle": "无奖励", "recommend": false},
+      {"text": "运功破门进入", "subtitle": "使用400金币获得一个状态", "recommend": true},
+      {"text": "施展魅惑技能破门进入", "subtitle": "使用400金币获得一个状态", "recommend": true}
+    ]
+  },
+  {
+    "maze": "灵鹫宫",
+    "q": "一条昏暗的小路，通往最后是一面混沌的镜子，少侠看到的景象是？",
+    "options": [
+      {"text": "堆成山的残肢断臂", "subtitle": "使用一个装备/秘宝", "recommend": true},
+      {"text": "堆成山的黄金", "subtitle": "无奖励", "recommend": false},
+      {"text": "堆成山的财宝", "subtitle": "使用一个装备/秘宝", "recommend": true},
+      {"text": "祭典战场", "subtitle": "无奖励", "recommend": false}
+    ]
   }
 ]
