@@ -92,15 +92,43 @@ function showAnswer(result) {
   answerPlaceholder.classList.add('hidden');
   answerContent.classList.remove('hidden');
   
-  // 设置问题文本
-  answerQuestion.textContent = result.q;
+  // 设置问题文本（包含迷宫类型）
+  if (result.maze) {
+    answerQuestion.innerHTML = `<span class="maze-tag">${result.maze}</span>${result.q}`;
+  } else {
+    answerQuestion.textContent = result.q;
+  }
   
   // 设置答案
   if (result.notFound) {
-    answerResult.textContent = result.a;
+    // 未找到匹配
+    answerResult.innerHTML = result.a;
     answerResult.classList.add('not-found');
     answerContent.classList.add('not-found');
+  } else if (result.options && result.options.length > 0) {
+    // 迷宫选项列表
+    answerResult.classList.remove('not-found');
+    answerContent.classList.remove('not-found');
+    
+    // 渲染选项列表
+    let optionsHtml = '<div class="options-list">';
+    for (const opt of result.options) {
+      const recommendClass = opt.recommend ? 'recommend' : 'not-recommend';
+      const recommendIcon = opt.recommend ? '✅' : '❌';
+      optionsHtml += `
+        <div class="option-item ${recommendClass}">
+          <div class="option-header">
+            <span class="option-icon">${recommendIcon}</span>
+            <span class="option-text">${opt.text}</span>
+          </div>
+          <div class="option-subtitle">${opt.subtitle}</div>
+        </div>
+      `;
+    }
+    optionsHtml += '</div>';
+    answerResult.innerHTML = optionsHtml;
   } else {
+    // 兼容旧格式 {q, a}
     answerResult.textContent = result.a;
     answerResult.classList.remove('not-found');
     answerContent.classList.remove('not-found');

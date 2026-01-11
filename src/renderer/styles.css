@@ -246,12 +246,10 @@ body::before {
 }
 
 .answer-result {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--accent-color);
-  text-shadow: 0 0 8px var(--accent-glow);
+  flex: 1;
+  overflow-y: auto;
   line-height: 1.4;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .answer-result.not-found {
@@ -262,6 +260,79 @@ body::before {
 
 .answer-content.not-found {
   border-left: 3px solid #e07a5f;
+}
+
+/* 迷宫标签 */
+.maze-tag {
+  display: inline-block;
+  padding: 2px 6px;
+  margin-right: 6px;
+  background: var(--accent-color);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--bg-primary);
+}
+
+/* 迷宫选项列表 */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.2s ease;
+}
+
+.option-item.recommend {
+  border-left-color: #52b788;
+  background: rgba(82, 183, 136, 0.1);
+}
+
+.option-item.not-recommend {
+  border-left-color: #6c757d;
+  background: rgba(108, 117, 125, 0.05);
+  opacity: 0.7;
+}
+
+.option-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.option-icon {
+  font-size: 14px;
+}
+
+.option-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.option-item.recommend .option-text {
+  color: #52b788;
+}
+
+.option-item.not-recommend .option-text {
+  color: var(--text-secondary);
+}
+
+.option-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-left: 22px;
+}
+
+.option-item.recommend .option-subtitle {
+  color: var(--text-secondary);
 }
 
 /* 按钮组 */
