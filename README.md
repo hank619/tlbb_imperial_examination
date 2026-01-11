@@ -2,7 +2,7 @@
 
 一个基于 Electron 的桌面应用，通过 OCR 识别屏幕上的题目文字，自动匹配本地题库并显示答案。
 
-![应用截图](assets/screenshot.png)
+![应用截图](assets/screenshot_new.png)
 
 ## ✨ 功能特性
 
