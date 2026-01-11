@@ -410,8 +410,8 @@ app.whenReady().then(() => {
   
   // 等待窗口创建完成后再注册快捷键
   setTimeout(() => {
-    // 注册全局快捷键 F12 触发识别
-    const ret = globalShortcut.register('F12', () => {
+    // 注册全局快捷键 F9 触发识别
+    const ret = globalShortcut.register('F9', () => {
       if (savedRegionBounds && mainWindow && !mainWindow.isDestroyed()) {
         // 检查当前是否在科举页面
         const url = mainWindow.webContents.getURL();
@@ -423,9 +423,9 @@ app.whenReady().then(() => {
     });
     
     if (ret) {
-      console.log('F12 快捷键已注册');
+      console.log('F9 快捷键已注册');
     } else {
-      console.log('F12 快捷键注册失败');
+      console.log('F9 快捷键注册失败');
     }
   }, 1000);
 });
