@@ -9,7 +9,8 @@
     "postinstall": "electron-rebuild -f -w sharp,screenshot-desktop",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac"
+    "build:mac": "electron-builder --mac",
+    "download-tessdata": "node scripts/download-tessdata.js"
   },
   "author": "",
   "license": "MIT",
@@ -76,6 +77,10 @@
       {
         "from": "questions",
         "to": "questions"
+      },
+      {
+        "from": "assets/tessdata",
+        "to": "tessdata"
       }
     ]
   }

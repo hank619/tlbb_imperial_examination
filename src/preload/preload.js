@@ -78,6 +78,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   // ========== 通用接口 ==========
   
+  // 获取 tessdata 路径（OCR 离线资源）
+  getTessdataPath: () => ipcRenderer.invoke('get-tessdata-path'),
+  
   // 开始区域选择（旧接口，保留兼容）
   startSelection: () => ipcRenderer.send('start-selection'),
   

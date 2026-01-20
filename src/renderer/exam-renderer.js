@@ -21,8 +21,14 @@ async function initTesseract() {
   try {
     updateStatus('⏳', '正在初始化 OCR 引擎...');
     
-    // 使用全局的 Tesseract（通过 CDN 加载）
+    // 获取本地 tessdata 路径（通过 preload 暴露）
+    const tessdataPath = await window.electronAPI.getTessdataPath();
+    
+    // 使用全局的 Tesseract，配置本地离线资源路径
     tesseractWorker = await Tesseract.createWorker('chi_sim', 1, {
+      workerPath: `${tessdataPath}/worker.min.js`,
+      corePath: `${tessdataPath}/core`,
+      langPath: `${tessdataPath}/lang`,
       logger: (m) => {
         if (m.status === 'recognizing text') {
           const progress = Math.round(m.progress * 100);
@@ -35,7 +41,8 @@ async function initTesseract() {
     updateStatus('📷', '准备就绪');
   } catch (error) {
     console.error('Tesseract 初始化失败:', error);
-    updateStatus('❌', 'OCR 引擎初始化失败');
+    const errorMsg = error.message || String(error);
+    updateStatus('❌', `OCR 引擎初始化失败: ${errorMsg}`);
   }
 }
 

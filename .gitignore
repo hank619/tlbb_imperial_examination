@@ -30,6 +30,9 @@ Thumbs.db
 # Tesseract 缓存
 .cache/
 
+# Tesseract 离线资源（通过 npm run download-tessdata 下载）
+assets/tessdata/
+
 # 临时文件
 *.tmp
 *.temp

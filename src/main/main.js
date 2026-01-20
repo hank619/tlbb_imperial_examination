@@ -506,6 +506,20 @@ ipcMain.handle('get-questions', async () => {
   }
 });
 
+// 获取 tessdata 路径（OCR 离线资源）
+ipcMain.handle('get-tessdata-path', () => {
+  // 打包后从资源目录读取
+  let tessdataPath = path.join(process.resourcesPath, 'tessdata');
+  
+  // 开发模式下从项目目录读取
+  if (!app.isPackaged) {
+    tessdataPath = path.join(__dirname, '../../assets/tessdata');
+  }
+  
+  // 转换为 file:// URL 格式，确保 Tesseract.js 可以正确加载
+  return `file://${tessdataPath.replace(/\\/g, '/')}`;
+});
+
 // 获取迷宫题库数据
 ipcMain.handle('get-maze-questions', async () => {
   try {
