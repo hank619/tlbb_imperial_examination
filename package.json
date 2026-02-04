@@ -7,9 +7,10 @@
     "start": "electron .",
     "rebuild": "electron-rebuild -f -w sharp,screenshot-desktop",
     "postinstall": "electron-rebuild -f -w sharp,screenshot-desktop",
+    "prebuild": "yarn download-tessdata",
     "build": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
+    "build:win": "yarn download-tessdata && electron-builder --win",
+    "build:mac": "yarn download-tessdata && electron-builder --mac",
     "download-tessdata": "node scripts/download-tessdata.js"
   },
   "author": "",

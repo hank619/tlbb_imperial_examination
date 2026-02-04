@@ -1,12 +1,11 @@
 /**
  * 下载 Tesseract.js 离线资源文件
  * 
- * 运行方式: npm run download-tessdata
+ * 运行方式: yarn download-tessdata
  * 
- * 下载内容:
- * - 中文简体语言包 (chi_sim.traineddata.gz)
- * - WASM 核心文件 (4个)
- * - Worker 脚本
+ * 内容:
+ * - 从 node_modules 复制: tesseract.min.js, worker.min.js, fuse.min.js
+ * - 从网络下载: 中文语言包, WASM 核心文件
  */
 
 const https = require('https');
@@ -14,8 +13,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-// Tesseract.js 版本
-const TESSERACT_VERSION = '5.1.1';
+// Tesseract.js 版本（用于下载 core）
 const CORE_VERSION = '5.1.0';
 
 // 下载目标目录
@@ -23,14 +21,15 @@ const TESSDATA_DIR = path.join(__dirname, '../assets/tessdata');
 const LANG_DIR = path.join(TESSDATA_DIR, 'lang');
 const CORE_DIR = path.join(TESSDATA_DIR, 'core');
 
+// 从 node_modules 复制的文件（无需网络）
+const COPY_FILES = [
+  { src: 'tesseract.js/dist/tesseract.min.js', dest: 'tesseract.min.js', name: 'Tesseract 主脚本' },
+  { src: 'tesseract.js/dist/worker.min.js', dest: 'worker.min.js', name: 'Worker 脚本' },
+  { src: 'fuse.js/dist/fuse.min.js', dest: 'fuse.min.js', name: 'Fuse 搜索库' }
+];
+
 // 需要下载的文件列表
 const FILES = [
-  // Worker 脚本
-  {
-    url: `https://cdn.jsdelivr.net/npm/tesseract.js@${TESSERACT_VERSION}/dist/worker.min.js`,
-    dest: path.join(TESSDATA_DIR, 'worker.min.js'),
-    name: 'Worker 脚本'
-  },
   // 语言包
   {
     url: 'https://tessdata.projectnaptha.com/4.0.0/chi_sim.traineddata.gz',
@@ -144,6 +143,37 @@ function formatSize(bytes) {
 }
 
 /**
+ * 从 node_modules 复制文件
+ */
+function copyFromNodeModules() {
+  const nodeModules = path.join(__dirname, '../node_modules');
+  
+  for (const file of COPY_FILES) {
+    const src = path.join(nodeModules, file.src);
+    const dest = path.join(TESSDATA_DIR, file.dest);
+    
+    try {
+      if (fs.existsSync(src)) {
+        if (fs.existsSync(dest)) {
+          console.log(`⏭️  跳过 (已存在): ${file.name}`);
+        } else {
+          fs.copyFileSync(src, dest);
+          const stats = fs.statSync(dest);
+          console.log(`✅ 已复制: ${file.name} (${formatSize(stats.size)})`);
+        }
+      } else {
+        console.error(`❌ 源文件不存在: ${src}`);
+        console.error(`   请先运行 yarn install`);
+        process.exit(1);
+      }
+    } catch (error) {
+      console.error(`❌ 复制失败: ${file.name}`, error.message);
+      process.exit(1);
+    }
+  }
+}
+
+/**
  * 主函数
  */
 async function main() {
@@ -156,9 +186,12 @@ async function main() {
   ensureDir(LANG_DIR);
   ensureDir(CORE_DIR);
   
+  // 从 node_modules 复制主脚本和 Worker（无需网络）
+  console.log('📦 从 node_modules 复制...\n');
+  copyFromNodeModules();
   console.log('');
   
-  // 下载所有文件
+  // 下载语言包和 WASM 核心
   let successCount = 0;
   let failCount = 0;
   
