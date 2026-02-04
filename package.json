@@ -1,6 +1,6 @@
 {
   "name": "tlbb-assistant",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "天龙助手 - 天龙八部游戏辅助工具",
   "main": "src/main/main.js",
   "scripts": {
